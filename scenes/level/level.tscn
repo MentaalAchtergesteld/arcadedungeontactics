@@ -29,6 +29,7 @@ tile_set = SubResource("TileSet_i166f")
 [node name="Units" type="Node2D" parent="."]
 
 [node name="Unit" parent="Units" instance=ExtResource("2_nbgty")]
+position = Vector2(56, 8)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
