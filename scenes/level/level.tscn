@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=4 uid="uid://b3adu3hp6rpm8"]
+
+[ext_resource type="Script" uid="uid://bscuwlowwy8ii" path="res://scenes/level/level.gd" id="1_h3e3j"]
+[ext_resource type="Texture2D" uid="uid://cllook31gtn1p" path="res://assets/test_tileset.png" id="2_i166f"]
+[ext_resource type="PackedScene" uid="uid://dw6tq28finwin" path="res://entities/unit/unit.tscn" id="2_nbgty"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qkmgm"]
+texture = ExtResource("2_i166f")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_i166f"]
+tile_layout = 1
+sources/4 = SubResource("TileSetAtlasSource_qkmgm")
+
+[node name="Level" type="Node"]
+script = ExtResource("1_h3e3j")
+
+[node name="Tilemap" type="TileMapLayer" parent="."]
+use_parent_material = true
+tile_map_data = PackedByteArray("AAAAAAAABAACAAAAAAABAAAABAACAAAAAAACAAAABAACAAAAAAADAAAABAACAAAAAAAEAAAABAACAAAAAAAFAAAABAACAAAAAAAGAAAABAACAAAAAAAHAAAABAACAAAAAAAIAAAABAACAAAAAAAJAAAABAACAAAAAAAJAAEABAACAAAAAAAJAAIABAACAAAAAAAJAAMABAACAAAAAAAJAAQABAACAAAAAAAIAAQABAACAAAAAAAHAAQABAACAAAAAAAGAAQABAACAAAAAAAFAAQABAACAAAAAAAEAAQABAACAAAAAAADAAQABAACAAAAAAACAAQABAACAAAAAAABAAQABAACAAAAAAAAAAQABAACAAAAAAAAAAMABAACAAAAAAAAAAIABAACAAAAAAAAAAEABAACAAAAAAABAAEABAABAAAAAAABAAIABAABAAAAAAABAAMABAABAAAAAAACAAMABAABAAAAAAADAAMABAABAAAAAAADAAIABAABAAAAAAADAAEABAABAAAAAAACAAEABAABAAAAAAACAAIABAABAAAAAAAEAAIABAABAAAAAAAFAAIABAABAAAAAAAGAAIABAABAAAAAAAFAAEABAABAAAAAAAEAAEABAABAAAAAAAEAAMABAABAAAAAAAFAAMABAABAAAAAAAGAAMABAABAAAAAAAGAAEABAABAAAAAAAHAAIABAABAAAAAAAHAAEABAABAAAAAAAHAAMABAABAAAAAAAIAAMABAABAAAAAAAIAAIABAABAAAAAAAIAAEABAABAAAAAAACAAUABAAAAAAAAAA=")
+tile_set = SubResource("TileSet_i166f")
+
+[node name="CellHighlights" type="Node2D" parent="."]
+
+[node name="MapObjects" type="Node2D" parent="."]
+
+[node name="Units" type="Node2D" parent="."]
+
+[node name="Unit" parent="Units" instance=ExtResource("2_nbgty")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
