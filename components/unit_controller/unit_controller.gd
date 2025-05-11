@@ -3,5 +3,10 @@ extends Resource
 
 signal finished;
 
-func start(caster: Unit, origin: Vector2i, actions: Array[Action]):
+var actions: Array[Action] = [];
+
+func start(caster: Unit, origin: Vector2i):
 	finished.emit();
+
+func setup(_actions: Array[Action]) -> void:
+	actions = _actions;

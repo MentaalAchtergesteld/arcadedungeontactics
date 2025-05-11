@@ -3,6 +3,8 @@ extends Action
 
 @export var range: int = 3;
 
+func name() -> String: return "Attack";
+
 func get_tile_info(caster: Unit, origin: Vector2i) -> Array[TileInfo]:
 	var result: Array[TileInfo] = [];
 	var enemies = GameManager.units.get_enemies(caster);

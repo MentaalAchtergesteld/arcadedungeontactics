@@ -15,6 +15,7 @@ func center_camera() -> void:
 	camera.global_position = tilemap_center;
 
 func _ready() -> void:
+	EventBus.clear_winner.emit();
 	GameManager.setup_level(tilemap, map_objects , units);
 	Navigation.setup_level(tilemap, units.get_units);
 	center_camera();
@@ -22,7 +23,9 @@ func _ready() -> void:
 	units.start_battle();
 
 func _on_units_battle_over(winning_team: UnitTeam) -> void:
+	EventBus.set_winner.emit(winning_team);
 	print("Battle over! Winner: " + winning_team.name);
 
 func _on_units_battle_draw() -> void:
+	EventBus.set_winner_draw.emit();
 	print("Battle draw!");

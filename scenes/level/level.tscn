@@ -1,15 +1,20 @@
-[gd_scene load_steps=21 format=4 uid="uid://b3adu3hp6rpm8"]
+[gd_scene load_steps=29 format=4 uid="uid://b3adu3hp6rpm8"]
 
 [ext_resource type="Script" uid="uid://bscuwlowwy8ii" path="res://scenes/level/level.gd" id="1_h3e3j"]
 [ext_resource type="Texture2D" uid="uid://cllook31gtn1p" path="res://assets/test_tileset.png" id="2_i166f"]
 [ext_resource type="PackedScene" uid="uid://dw6tq28finwin" path="res://entities/unit/unit.tscn" id="2_nbgty"]
+[ext_resource type="Script" uid="uid://34038uuij0uw" path="res://components/tile_highlight_manager/tile_highlight_manager.gd" id="3_pe1ox"]
 [ext_resource type="Script" uid="uid://cjabqgtq2j7dj" path="res://entities/unit_team_container/unit_team_container.gd" id="3_qkmgm"]
 [ext_resource type="Script" uid="uid://kdmoofypyfqi" path="res://entities/unit_team/unit_team.gd" id="4_hnne4"]
 [ext_resource type="Script" uid="uid://drelgn24vd148" path="res://components/unit_controller/random_controller.gd" id="6_pe1ox"]
 [ext_resource type="Script" uid="uid://jo33uuraynnh" path="res://resources/action/action.gd" id="6_wcngd"]
+[ext_resource type="Script" uid="uid://hlpkw60qnjd7" path="res://components/unit_controller/player_controller.gd" id="7_b7m21"]
 [ext_resource type="Script" uid="uid://brphtc55lqc1u" path="res://resources/action/attack_action.gd" id="7_tf2q7"]
 [ext_resource type="Script" uid="uid://cglx2ilj6bopn" path="res://resources/unit_definition/unit_definition.gd" id="7_xv074"]
 [ext_resource type="Script" uid="uid://euevhlt0vsaw" path="res://resources/action/move_action.gd" id="9_m0bv2"]
+[ext_resource type="Script" uid="uid://bdefl5x26t03k" path="res://resources/action/heal_action.gd" id="11_pm6rs"]
+[ext_resource type="PackedScene" uid="uid://cgk6a4uoxt8vt" path="res://ui/action_chooser/action_chooser.tscn" id="12_m0bv2"]
+[ext_resource type="PackedScene" uid="uid://cs5nt708g21yc" path="res://ui/win_display/win_display.tscn" id="15_vrc4q"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qkmgm"]
 texture = ExtResource("2_i166f")
@@ -24,9 +29,9 @@ custom_data_layer_0/name = "is_solid"
 custom_data_layer_0/type = 1
 sources/4 = SubResource("TileSetAtlasSource_qkmgm")
 
-[sub_resource type="Resource" id="Resource_ivku7"]
-script = ExtResource("6_pe1ox")
-metadata/_custom_type_script = "uid://drelgn24vd148"
+[sub_resource type="Resource" id="Resource_pm6rs"]
+script = ExtResource("7_b7m21")
+metadata/_custom_type_script = "uid://hlpkw60qnjd7"
 
 [sub_resource type="Resource" id="Resource_pe1ox"]
 script = ExtResource("7_tf2q7")
@@ -35,15 +40,28 @@ metadata/_custom_type_script = "uid://brphtc55lqc1u"
 
 [sub_resource type="Resource" id="Resource_x4oov"]
 script = ExtResource("9_m0bv2")
-range = 1
+range = 2
 metadata/_custom_type_script = "uid://euevhlt0vsaw"
+
+[sub_resource type="Resource" id="Resource_ivku7"]
+script = ExtResource("11_pm6rs")
+range = 3
+metadata/_custom_type_script = "uid://bdefl5x26t03k"
 
 [sub_resource type="Resource" id="Resource_tf2q7"]
 script = ExtResource("7_xv074")
 name = "TestFriendly"
-actions = Array[ExtResource("6_wcngd")]([SubResource("Resource_pe1ox"), SubResource("Resource_x4oov")])
+actions = Array[ExtResource("6_wcngd")]([SubResource("Resource_pe1ox"), SubResource("Resource_x4oov"), SubResource("Resource_ivku7")])
 max_health = 3
 metadata/_custom_type_script = "uid://cglx2ilj6bopn"
+
+[sub_resource type="Resource" id="Resource_0fkkc"]
+script = ExtResource("6_pe1ox")
+metadata/_custom_type_script = "uid://drelgn24vd148"
+
+[sub_resource type="Resource" id="Resource_qjqsm"]
+script = ExtResource("7_b7m21")
+metadata/_custom_type_script = "uid://hlpkw60qnjd7"
 
 [sub_resource type="Resource" id="Resource_ss4b2"]
 script = ExtResource("6_pe1ox")
@@ -74,7 +92,9 @@ use_parent_material = true
 tile_map_data = PackedByteArray("AAAAAAAABAACAAAAAAABAAAABAACAAAAAAACAAAABAACAAAAAAADAAAABAACAAAAAAAEAAAABAACAAAAAAAFAAAABAACAAAAAAAGAAAABAACAAAAAAAHAAAABAACAAAAAAAIAAAABAACAAAAAAAJAAAABAACAAAAAAAJAAEABAACAAAAAAAJAAIABAACAAAAAAAJAAMABAACAAAAAAAJAAQABAACAAAAAAAIAAQABAACAAAAAAAHAAQABAACAAAAAAAGAAQABAACAAAAAAAFAAQABAACAAAAAAAEAAQABAACAAAAAAADAAQABAACAAAAAAACAAQABAACAAAAAAABAAQABAACAAAAAAAAAAQABAACAAAAAAAAAAMABAACAAAAAAAAAAIABAACAAAAAAAAAAEABAACAAAAAAABAAEABAABAAAAAAABAAIABAABAAAAAAABAAMABAABAAAAAAACAAMABAABAAAAAAADAAMABAABAAAAAAADAAIABAABAAAAAAADAAEABAABAAAAAAACAAEABAABAAAAAAACAAIABAABAAAAAAAEAAIABAABAAAAAAAFAAIABAABAAAAAAAGAAIABAABAAAAAAAFAAEABAABAAAAAAAEAAEABAABAAAAAAAEAAMABAABAAAAAAAFAAMABAABAAAAAAAGAAMABAABAAAAAAAGAAEABAABAAAAAAAHAAIABAABAAAAAAAHAAEABAABAAAAAAAHAAMABAABAAAAAAAIAAMABAABAAAAAAAIAAIABAABAAAAAAAIAAEABAABAAAAAAACAAUABAAAAAAAAAA=")
 tile_set = SubResource("TileSet_i166f")
 
-[node name="CellHighlights" type="Node2D" parent="."]
+[node name="TileHighlights" type="Node2D" parent="."]
+z_index = 1
+script = ExtResource("3_pe1ox")
 
 [node name="MapObjects" type="Node2D" parent="."]
 
@@ -86,7 +106,7 @@ script = ExtResource("4_hnne4")
 
 [node name="Unit" parent="Units/FriendlyTeam" instance=ExtResource("2_nbgty")]
 position = Vector2(40, 56)
-controller = SubResource("Resource_ivku7")
+controller = SubResource("Resource_pm6rs")
 definition = SubResource("Resource_tf2q7")
 
 [node name="ColorRect" type="ColorRect" parent="Units/FriendlyTeam/Unit"]
@@ -94,13 +114,40 @@ offset_left = -4.0
 offset_top = -4.0
 offset_right = 4.0
 offset_bottom = 4.0
+mouse_filter = 2
+color = Color(0.2, 1, 0.306667, 1)
+
+[node name="Unit2" parent="Units/FriendlyTeam" instance=ExtResource("2_nbgty")]
+position = Vector2(88, 56)
+controller = SubResource("Resource_0fkkc")
+definition = SubResource("Resource_tf2q7")
+
+[node name="ColorRect" type="ColorRect" parent="Units/FriendlyTeam/Unit2"]
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+mouse_filter = 2
+color = Color(0.2, 1, 0.306667, 1)
+
+[node name="Unit3" parent="Units/FriendlyTeam" instance=ExtResource("2_nbgty")]
+position = Vector2(88, 56)
+controller = SubResource("Resource_qjqsm")
+definition = SubResource("Resource_tf2q7")
+
+[node name="ColorRect" type="ColorRect" parent="Units/FriendlyTeam/Unit3"]
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+mouse_filter = 2
 color = Color(0.2, 1, 0.306667, 1)
 
 [node name="EnemyTeam" type="Node2D" parent="Units"]
 script = ExtResource("4_hnne4")
 
 [node name="Unit2" parent="Units/EnemyTeam" instance=ExtResource("2_nbgty")]
-position = Vector2(72, 56)
+position = Vector2(56, 24)
 controller = SubResource("Resource_ss4b2")
 definition = SubResource("Resource_sytrn")
 
@@ -109,10 +156,30 @@ offset_left = -4.0
 offset_top = -4.0
 offset_right = 4.0
 offset_bottom = 4.0
+mouse_filter = 2
+color = Color(1, 0.2, 0.2, 1)
+
+[node name="Unit3" parent="Units/EnemyTeam" instance=ExtResource("2_nbgty")]
+position = Vector2(136, 24)
+controller = SubResource("Resource_ss4b2")
+definition = SubResource("Resource_sytrn")
+
+[node name="ColorRect2" type="ColorRect" parent="Units/EnemyTeam/Unit3"]
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+mouse_filter = 2
 color = Color(1, 0.2, 0.2, 1)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ActionChooser" parent="UI" instance=ExtResource("12_m0bv2")]
+
+[node name="WinDisplay" parent="UI" instance=ExtResource("15_vrc4q")]
 
 [connection signal="battle_draw" from="Units" to="." method="_on_units_battle_draw"]
 [connection signal="battle_over" from="Units" to="." method="_on_units_battle_over"]

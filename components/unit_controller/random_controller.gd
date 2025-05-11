@@ -1,11 +1,12 @@
 class_name RandomController
 extends UnitController
 
-func start(caster: Unit, origin: Vector2i, actions: Array[Action]) -> void:
-	var action: Action = actions.pick_random();
-	if action == null:
+func start(caster: Unit, origin: Vector2i) -> void:
+	if actions.is_empty():
 		finished.emit();
-		return; 
+		return;
+	
+	var action: Action = actions.pick_random();
 	print("Action chosen: " + str(action.script.get_path()));
 	
 	var tiles = action.get_tile_info(caster, origin);

@@ -21,9 +21,10 @@ func _on_controller_finished():
 
 func start_turn():
 	await get_tree().create_timer(0.5).timeout;
-	controller.start(self, grid_position, definition.actions);
+	controller.start(self, grid_position);
 
 func _on_health_depleted():
+	visible = false;
 	died.emit();
 
 func update_definition() -> void:
@@ -33,4 +34,5 @@ func update_definition() -> void:
 
 func _ready() -> void:
 	health_component.health_depleted.connect(_on_health_depleted);
+	controller.setup(definition.actions);
 	controller.finished.connect(_on_controller_finished);

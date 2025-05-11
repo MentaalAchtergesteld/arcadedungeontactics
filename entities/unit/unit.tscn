@@ -21,6 +21,8 @@ script = ExtResource("4_f5ot1")
 actor = NodePath("..")
 
 [node name="Healthbar" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_h1r3i")]
+z_index = 1
+z_as_relative = false
 offset_left = -6.0
 offset_top = -13.0
 offset_right = 6.0

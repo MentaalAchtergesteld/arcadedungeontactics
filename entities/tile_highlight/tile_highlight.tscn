@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://dvpnr3y187m5t"]
+
+[ext_resource type="Script" uid="uid://cekgqsbx03aei" path="res://entities/tile_highlight/tile_highlight.gd" id="1_73xjl"]
+[ext_resource type="Texture2D" uid="uid://bl8qyyacrgktc" path="res://assets/negative_highlight.png" id="2_3dey4"]
+[ext_resource type="Texture2D" uid="uid://ddlbil275iei0" path="res://assets/neutral_highlight.png" id="2_fgmj5"]
+[ext_resource type="Texture2D" uid="uid://3kxf8ruflobf" path="res://assets/positive_highlight.png" id="4_6gpwm"]
+
+[node name="TileHighlight" type="Node2D"]
+script = ExtResource("1_73xjl")
+neutral_texture = ExtResource("2_fgmj5")
+negative_texture = ExtResource("2_3dey4")
+positive_texture = ExtResource("4_6gpwm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.784314)
+texture_filter = 1
+texture = ExtResource("2_fgmj5")

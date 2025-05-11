@@ -3,6 +3,8 @@ extends Resource
 
 signal finished;
 
+func name() -> String: return "Action";
+
 func get_tile_info(caster: Unit, origin: Vector2i) -> Array[TileInfo]:
 	return [];
 
