@@ -2,7 +2,7 @@ class_name TileInfo
 extends RefCounted
 
 enum RoleType { Clickable, Affected };
-enum EffectType { Neutal, Positive, Negative };
+enum EffectType { Neutral, Positive, Negative };
 
 var position: Vector2i;
 var role: RoleType;

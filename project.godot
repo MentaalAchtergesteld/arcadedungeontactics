@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 Navigation="*res://autoloads/navigation.gd"
+EventBus="*res://autoloads/event_bus.gd"
+GameManager="*res://autoloads/game_manager.gd"
 
 [display]
 

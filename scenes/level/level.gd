@@ -3,6 +3,8 @@ extends Node
 
 @onready var camera: Camera2D = $Camera2D;
 @onready var tilemap: TileMapLayer = $Tilemap;
+@onready var map_objects: Node2D = $MapObjects;
+@onready var units: UnitTeamContainer = $Units;
 
 
 func center_camera() -> void:
@@ -13,5 +15,6 @@ func center_camera() -> void:
 	camera.global_position = tilemap_center;
 
 func _ready() -> void:
-	Navigation.setup_level(tilemap);
+	GameManager.setup_level(tilemap, map_objects , units);
+	Navigation.setup_level(tilemap, units.get_units);
 	center_camera();

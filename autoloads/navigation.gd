@@ -17,7 +17,7 @@ func update_unit_grid():
 
 func update_astar_grid():
 	astar_grid.clear();
-	astar_grid.cell_size = cell_size;
+	astar_grid.cell_size = Vector2.ONE;
 	astar_grid.region = tilemap.get_used_rect();
 	astar_grid.update();
 	
@@ -52,8 +52,8 @@ func world_to_map(world_pos: Vector2) -> Vector2i:
 		return Vector2i.ZERO;
 	return tilemap.local_to_map(world_pos);
 
-func calculate_path(origin: Vector2i, target: Vector2i) -> Array[Vector2i]:
-	var path = [];
+func calculate_path(origin: Vector2i, target: Vector2i) -> PackedVector2Array:
+	var path: PackedVector2Array = [];
 	var rect = tilemap.get_used_rect(); 
 	if not rect.has_point(origin) or not rect.has_point(target):
 		return path;
@@ -62,7 +62,7 @@ func calculate_path(origin: Vector2i, target: Vector2i) -> Array[Vector2i]:
 		return path;
 	update_astar_grid();
 	
-	return astar_grid.get_point_path(origin, target);
+	return astar_grid.get_point_path(origin, target)
 
 func can_move_to(origin: Vector2i, target: Vector2i) -> bool:
 	return !calculate_path(origin, target).is_empty();

@@ -14,7 +14,7 @@
 ## Units & Interactie
 - [/] HealthComponent en DamageSystem via composition
 - [ ] Chain-reacties (bv. vijand explodeert > andere vijanden in vuur > extra reactie)
-- [ ] Abilities met simpele effecten (verplaatsing, explosie, stun)
+- [/] Abilities met simpele effecten (verplaatsing, explosie, stun)
 - [ ] Perks of upgrades die acties beïnvloeden (passieve modifiers)
 
 ## Map & Spawning
@@ -30,6 +30,7 @@
 
 ## Tech & Architectuur
 - [/] Navigation singleton voor grid-aligning en pathfinding
+- [/] GameManager singleton voor toegang tot UnitTeamContainer en dergelijke.
 - [ ] Unit-data via UnitDefinition (Resource)
 - [*] Level scene met duidelijke hiërarchie: TileMap, Units, Objects, Effects
 - [X] World renderen met Camera2D zoom (pixelart) + HD UI layer

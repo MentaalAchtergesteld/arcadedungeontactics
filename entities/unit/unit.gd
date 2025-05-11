@@ -7,23 +7,22 @@ extends Node2D
 var grid_position: Vector2i:
 	get: return position_component.grid_position;
 
-var alive:
-	get: health_component.current_health > 0;
-
-func _on_tilemap_changed():
-	global_position = Navigation.map_to_world(Vector2i(2, 5));
-
-func _ready() -> void:
-	Navigation.tilemap_changed.connect(_on_tilemap_changed);
+var alive: bool:
+	get: return health_component.current_health > 0;
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_accept"):
-		position_component.move_along_relative_path([
-			Vector2i(0, 1),
-			Vector2i(0, 1),
-			Vector2i(0, 1),
-			Vector2i(1, 0),
-			Vector2i(1, 0),
-			Vector2i(0, -1),
-			Vector2i(-1, 0),
-		])
+	if event.is_action_pressed("ui_accept") and name == "Unit":
+		var action = AttackAction.new();
+		var tiles = action.get_tile_info(self, grid_position);
+		
+		var enemy_position;
+		for tile in tiles:
+			if tile.role == TileInfo.RoleType.Clickable:
+				enemy_position = tile.position;
+				break;
+		
+		if enemy_position == null:
+			print("No enemy found :(");
+			return;
+		action.execute(self, grid_position, enemy_position);
+		await action.finished;
