@@ -25,6 +25,7 @@ func update_astar_grid():
 		if tilemap.get_cell_tile_data(tile).get_custom_data("is_solid"):
 			astar_grid.set_point_solid(tile, true);
 	
+	update_unit_grid();
 	for position in unit_positions:
 		astar_grid.set_point_solid(position, true);
 

@@ -7,32 +7,30 @@ signal turn_complete;
 @onready var health_component: HealthComponent = $HealthComponent;
 @onready var position_component: PositionComponent = $PositionComponent;
 
+@export var controller: UnitController;
+@export var definition: UnitDefinition;
+
 var grid_position: Vector2i:
 	get: return position_component.grid_position;
 
 var alive: bool:
 	get: return health_component.current_health > 0;
 
-func start_turn():
-	var action = AttackAction.new();
-	var tiles = action.get_tile_info(self, grid_position);
-	
-	var enemy_position;
-	for tile in tiles:
-		if tile.role == TileInfo.RoleType.Clickable:
-			enemy_position = tile.position;
-			break;
-	
-	if enemy_position == null:
-		print("No enemy found :(");
-		return;
-	action.execute(self, grid_position, enemy_position);
-	
-	await get_tree().create_timer(1).timeout;
+func _on_controller_finished():
 	turn_complete.emit();
+
+func start_turn():
+	await get_tree().create_timer(0.5).timeout;
+	controller.start(self, grid_position, definition.actions);
 
 func _on_health_depleted():
 	died.emit();
 
+func update_definition() -> void:
+	if definition == null: return;
+	name = definition.name;
+	health_component.max_health = definition.max_health;
+
 func _ready() -> void:
 	health_component.health_depleted.connect(_on_health_depleted);
+	controller.finished.connect(_on_controller_finished);

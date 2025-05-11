@@ -48,8 +48,7 @@ func load_teams() -> void:
 func get_units() -> Array[Unit]:
 	var all_units: Array[Unit] = [];
 	for team in teams:
-		var units = team.get_children().filter(func(unit): return unit is Unit);
-		all_units.append_array(units);
+		all_units.append_array(team.units);
 	return all_units;
 
 func is_same_team(unit_a: Unit, unit_b: Unit) -> bool:

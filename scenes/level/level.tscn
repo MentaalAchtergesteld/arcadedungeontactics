@@ -1,10 +1,15 @@
-[gd_scene load_steps=8 format=4 uid="uid://b3adu3hp6rpm8"]
+[gd_scene load_steps=21 format=4 uid="uid://b3adu3hp6rpm8"]
 
 [ext_resource type="Script" uid="uid://bscuwlowwy8ii" path="res://scenes/level/level.gd" id="1_h3e3j"]
 [ext_resource type="Texture2D" uid="uid://cllook31gtn1p" path="res://assets/test_tileset.png" id="2_i166f"]
 [ext_resource type="PackedScene" uid="uid://dw6tq28finwin" path="res://entities/unit/unit.tscn" id="2_nbgty"]
 [ext_resource type="Script" uid="uid://cjabqgtq2j7dj" path="res://entities/unit_team_container/unit_team_container.gd" id="3_qkmgm"]
 [ext_resource type="Script" uid="uid://kdmoofypyfqi" path="res://entities/unit_team/unit_team.gd" id="4_hnne4"]
+[ext_resource type="Script" uid="uid://drelgn24vd148" path="res://components/unit_controller/random_controller.gd" id="6_pe1ox"]
+[ext_resource type="Script" uid="uid://jo33uuraynnh" path="res://resources/action/action.gd" id="6_wcngd"]
+[ext_resource type="Script" uid="uid://brphtc55lqc1u" path="res://resources/action/attack_action.gd" id="7_tf2q7"]
+[ext_resource type="Script" uid="uid://cglx2ilj6bopn" path="res://resources/unit_definition/unit_definition.gd" id="7_xv074"]
+[ext_resource type="Script" uid="uid://euevhlt0vsaw" path="res://resources/action/move_action.gd" id="9_m0bv2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qkmgm"]
 texture = ExtResource("2_i166f")
@@ -18,6 +23,48 @@ tile_layout = 1
 custom_data_layer_0/name = "is_solid"
 custom_data_layer_0/type = 1
 sources/4 = SubResource("TileSetAtlasSource_qkmgm")
+
+[sub_resource type="Resource" id="Resource_ivku7"]
+script = ExtResource("6_pe1ox")
+metadata/_custom_type_script = "uid://drelgn24vd148"
+
+[sub_resource type="Resource" id="Resource_pe1ox"]
+script = ExtResource("7_tf2q7")
+range = 1
+metadata/_custom_type_script = "uid://brphtc55lqc1u"
+
+[sub_resource type="Resource" id="Resource_x4oov"]
+script = ExtResource("9_m0bv2")
+range = 1
+metadata/_custom_type_script = "uid://euevhlt0vsaw"
+
+[sub_resource type="Resource" id="Resource_tf2q7"]
+script = ExtResource("7_xv074")
+name = "TestFriendly"
+actions = Array[ExtResource("6_wcngd")]([SubResource("Resource_pe1ox"), SubResource("Resource_x4oov")])
+max_health = 3
+metadata/_custom_type_script = "uid://cglx2ilj6bopn"
+
+[sub_resource type="Resource" id="Resource_ss4b2"]
+script = ExtResource("6_pe1ox")
+metadata/_custom_type_script = "uid://drelgn24vd148"
+
+[sub_resource type="Resource" id="Resource_b7m21"]
+script = ExtResource("7_tf2q7")
+range = 1
+metadata/_custom_type_script = "uid://brphtc55lqc1u"
+
+[sub_resource type="Resource" id="Resource_vrc4q"]
+script = ExtResource("9_m0bv2")
+range = 1
+metadata/_custom_type_script = "uid://euevhlt0vsaw"
+
+[sub_resource type="Resource" id="Resource_sytrn"]
+script = ExtResource("7_xv074")
+name = "TestEnemy"
+actions = Array[ExtResource("6_wcngd")]([SubResource("Resource_b7m21"), SubResource("Resource_vrc4q")])
+max_health = 2
+metadata/_custom_type_script = "uid://cglx2ilj6bopn"
 
 [node name="Level" type="Node"]
 script = ExtResource("1_h3e3j")
@@ -39,12 +86,30 @@ script = ExtResource("4_hnne4")
 
 [node name="Unit" parent="Units/FriendlyTeam" instance=ExtResource("2_nbgty")]
 position = Vector2(40, 56)
+controller = SubResource("Resource_ivku7")
+definition = SubResource("Resource_tf2q7")
+
+[node name="ColorRect" type="ColorRect" parent="Units/FriendlyTeam/Unit"]
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+color = Color(0.2, 1, 0.306667, 1)
 
 [node name="EnemyTeam" type="Node2D" parent="Units"]
 script = ExtResource("4_hnne4")
 
 [node name="Unit2" parent="Units/EnemyTeam" instance=ExtResource("2_nbgty")]
 position = Vector2(72, 56)
+controller = SubResource("Resource_ss4b2")
+definition = SubResource("Resource_sytrn")
+
+[node name="ColorRect2" type="ColorRect" parent="Units/EnemyTeam/Unit2"]
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+color = Color(1, 0.2, 0.2, 1)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)

@@ -27,6 +27,6 @@ func execute(
 ) -> void:
 	var target_unit = GameManager.units.get_unit_at_position(target);
 	if target_unit == null: return;
-	target_unit.health_component.h(1);
+	target_unit.health_component.heal(1);
 	
 	finished.emit();
