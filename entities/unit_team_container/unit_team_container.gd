@@ -1,12 +1,49 @@
 class_name UnitTeamContainer
 extends Node2D
 
-var teams: Array[Node2D] = [];
+signal battle_over(winning_team: UnitTeam);
+signal battle_draw;
+
+var teams: Array[UnitTeam] = [];
+var current_team_index: int = 0;
+
+func check_game_end():
+	var alive_teams = teams.filter(func(team): return !team.active_units.is_empty());
+	
+	if alive_teams.is_empty():
+		battle_draw.emit();
+		return true;
+	elif alive_teams.size() == 1:
+		battle_over.emit(alive_teams[0]);
+		return true;
+	else:
+		return false;
+
+func end_team_turn() -> void:
+	if check_game_end(): return;
+	
+	current_team_index += 1;
+	if current_team_index >= teams.size():
+		current_team_index = 0;
+	
+	start_team_turn();
+
+func start_team_turn() -> void:
+	var team = teams[current_team_index];
+	if !team.active_units.is_empty():
+		team.start_turn();
+		await team.turn_complete;
+	
+	end_team_turn();
+
+func start_battle() -> void:
+	start_team_turn();
 
 func load_teams() -> void:
 	teams = [];
 	for child in get_children():
-		teams.append(child);
+		if child is UnitTeam:
+			teams.append(child);
 
 func get_units() -> Array[Unit]:
 	var all_units: Array[Unit] = [];

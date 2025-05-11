@@ -18,3 +18,11 @@ func _ready() -> void:
 	GameManager.setup_level(tilemap, map_objects , units);
 	Navigation.setup_level(tilemap, units.get_units);
 	center_camera();
+	
+	units.start_battle();
+
+func _on_units_battle_over(winning_team: UnitTeam) -> void:
+	print("Battle over! Winner: " + winning_team.name);
+
+func _on_units_battle_draw() -> void:
+	print("Battle draw!");

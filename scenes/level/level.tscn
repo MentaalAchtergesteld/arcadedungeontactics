@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=4 uid="uid://b3adu3hp6rpm8"]
+[gd_scene load_steps=8 format=4 uid="uid://b3adu3hp6rpm8"]
 
 [ext_resource type="Script" uid="uid://bscuwlowwy8ii" path="res://scenes/level/level.gd" id="1_h3e3j"]
 [ext_resource type="Texture2D" uid="uid://cllook31gtn1p" path="res://assets/test_tileset.png" id="2_i166f"]
 [ext_resource type="PackedScene" uid="uid://dw6tq28finwin" path="res://entities/unit/unit.tscn" id="2_nbgty"]
 [ext_resource type="Script" uid="uid://cjabqgtq2j7dj" path="res://entities/unit_team_container/unit_team_container.gd" id="3_qkmgm"]
+[ext_resource type="Script" uid="uid://kdmoofypyfqi" path="res://entities/unit_team/unit_team.gd" id="4_hnne4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qkmgm"]
 texture = ExtResource("2_i166f")
@@ -34,14 +35,19 @@ tile_set = SubResource("TileSet_i166f")
 script = ExtResource("3_qkmgm")
 
 [node name="FriendlyTeam" type="Node2D" parent="Units"]
+script = ExtResource("4_hnne4")
 
 [node name="Unit" parent="Units/FriendlyTeam" instance=ExtResource("2_nbgty")]
 position = Vector2(40, 56)
 
 [node name="EnemyTeam" type="Node2D" parent="Units"]
+script = ExtResource("4_hnne4")
 
 [node name="Unit2" parent="Units/EnemyTeam" instance=ExtResource("2_nbgty")]
 position = Vector2(72, 56)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
+
+[connection signal="battle_draw" from="Units" to="." method="_on_units_battle_draw"]
+[connection signal="battle_over" from="Units" to="." method="_on_units_battle_over"]
