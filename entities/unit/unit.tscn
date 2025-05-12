@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dw6tq28finwin"]
 
 [ext_resource type="Script" uid="uid://cpu4800dki5vl" path="res://entities/unit/unit.gd" id="1_w87tj"]
-[ext_resource type="Texture2D" uid="uid://btvenopoeqlbq" path="res://icon.svg" id="2_tkh0x"]
+[ext_resource type="Texture2D" uid="uid://b77myehxl1v37" path="res://assets/kenney_tiny-dungeon/Tiles/tile_0088.png" id="2_f5ot1"]
 [ext_resource type="Script" uid="uid://btfmngh8138a5" path="res://components/health_component/health_component.gd" id="3_p0kfm"]
 [ext_resource type="Script" uid="uid://de5einrf501o1" path="res://components/move_component/move_component.gd" id="4_f5ot1"]
 [ext_resource type="PackedScene" uid="uid://cpt5jhmuhwtb3" path="res://components/healthbar/healthbar.tscn" id="4_h1r3i"]
@@ -10,8 +10,7 @@
 script = ExtResource("1_w87tj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.125, 0.125)
-texture = ExtResource("2_tkh0x")
+texture = ExtResource("2_f5ot1")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("3_p0kfm")

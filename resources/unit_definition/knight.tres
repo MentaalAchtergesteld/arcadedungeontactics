@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=8 format=3 uid="uid://bk6jkpq2anntw"]
+
+[ext_resource type="Script" uid="uid://jo33uuraynnh" path="res://resources/action/action.gd" id="1_br0x5"]
+[ext_resource type="Script" uid="uid://brphtc55lqc1u" path="res://resources/action/attack_action.gd" id="3_br0x5"]
+[ext_resource type="Script" uid="uid://euevhlt0vsaw" path="res://resources/action/move_action.gd" id="3_kclax"]
+[ext_resource type="Script" uid="uid://cglx2ilj6bopn" path="res://resources/unit_definition/unit_definition.gd" id="4_c24gg"]
+[ext_resource type="Texture2D" uid="uid://dibkxv3a1vs2" path="res://assets/kenney_tiny-dungeon/Tiles/tile_0096.png" id="5_br0x5"]
+
+[sub_resource type="Resource" id="Resource_lt30y"]
+script = ExtResource("3_kclax")
+range = 1
+metadata/_custom_type_script = "uid://euevhlt0vsaw"
+
+[sub_resource type="Resource" id="Resource_70iav"]
+script = ExtResource("3_br0x5")
+range = 2
+metadata/_custom_type_script = "uid://brphtc55lqc1u"
+
+[resource]
+script = ExtResource("4_c24gg")
+name = "Knight"
+actions = Array[ExtResource("1_br0x5")]([SubResource("Resource_lt30y"), SubResource("Resource_70iav")])
+max_health = 4
+texture = ExtResource("5_br0x5")
+metadata/_custom_type_script = "uid://cglx2ilj6bopn"

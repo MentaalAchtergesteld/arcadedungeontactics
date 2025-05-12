@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=8 format=3 uid="uid://cphikvpfwpwxw"]
+
+[ext_resource type="Script" uid="uid://jo33uuraynnh" path="res://resources/action/action.gd" id="1_qqmgp"]
+[ext_resource type="Script" uid="uid://brphtc55lqc1u" path="res://resources/action/attack_action.gd" id="2_pudph"]
+[ext_resource type="Script" uid="uid://euevhlt0vsaw" path="res://resources/action/move_action.gd" id="4_axhv1"]
+[ext_resource type="Script" uid="uid://cglx2ilj6bopn" path="res://resources/unit_definition/unit_definition.gd" id="5_r62v8"]
+[ext_resource type="Texture2D" uid="uid://o4cc1jwrf3ka" path="res://assets/kenney_tiny-dungeon/Tiles/tile_0109.png" id="6_qqmgp"]
+
+[sub_resource type="Resource" id="Resource_xrtng"]
+script = ExtResource("2_pudph")
+range = 1
+metadata/_custom_type_script = "uid://brphtc55lqc1u"
+
+[sub_resource type="Resource" id="Resource_lt30y"]
+script = ExtResource("4_axhv1")
+range = 1
+metadata/_custom_type_script = "uid://euevhlt0vsaw"
+
+[resource]
+script = ExtResource("5_r62v8")
+name = "Cyclops"
+actions = Array[ExtResource("1_qqmgp")]([SubResource("Resource_xrtng"), SubResource("Resource_lt30y")])
+max_health = 5
+texture = ExtResource("6_qqmgp")
+metadata/_custom_type_script = "uid://cglx2ilj6bopn"

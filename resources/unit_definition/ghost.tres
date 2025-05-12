@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=8 format=3 uid="uid://b4e16px0a4n0y"]
+
+[ext_resource type="Script" uid="uid://jo33uuraynnh" path="res://resources/action/action.gd" id="1_5vyiv"]
+[ext_resource type="Script" uid="uid://bdefl5x26t03k" path="res://resources/action/heal_action.gd" id="3_y2byr"]
+[ext_resource type="Script" uid="uid://euevhlt0vsaw" path="res://resources/action/move_action.gd" id="4_v3ahk"]
+[ext_resource type="Script" uid="uid://cglx2ilj6bopn" path="res://resources/unit_definition/unit_definition.gd" id="5_yy754"]
+[ext_resource type="Texture2D" uid="uid://ddk4t8w1udset" path="res://assets/kenney_tiny-dungeon/Tiles/tile_0108.png" id="6_5vyiv"]
+
+[sub_resource type="Resource" id="Resource_yfaj3"]
+script = ExtResource("3_y2byr")
+range = 2
+metadata/_custom_type_script = "uid://bdefl5x26t03k"
+
+[sub_resource type="Resource" id="Resource_lt30y"]
+script = ExtResource("4_v3ahk")
+range = 3
+metadata/_custom_type_script = "uid://euevhlt0vsaw"
+
+[resource]
+script = ExtResource("5_yy754")
+name = "Ghost"
+actions = Array[ExtResource("1_5vyiv")]([SubResource("Resource_yfaj3"), SubResource("Resource_lt30y")])
+max_health = 1
+texture = ExtResource("6_5vyiv")
+metadata/_custom_type_script = "uid://cglx2ilj6bopn"
