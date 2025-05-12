@@ -58,24 +58,33 @@ func is_same_team(unit_a: Unit, unit_b: Unit) -> bool:
 			return true;
 	return false;
 
-func get_friendles(unit: Unit) -> Array[Unit]:
+func get_friendles(unit: Unit, is_active: bool = false, exclude_self = false) -> Array[Unit]:
 	var friendly_teams = teams.filter(func(team): return team.get_children().has(unit));
 	if friendly_teams.is_empty(): return [];
 	
 	var friendlies: Array[Unit] = [];
 	for team in friendly_teams:
-		var units = team.get_children().filter(func(unit): return unit is Unit);
+		var units = team.get_children().filter(func(_unit):
+			if not _unit is Unit: return false;
+			if is_active and !_unit.alive: return false;
+			if exclude_self and _unit == unit: return false;
+			return true;
+		);
 		friendlies.append_array(units);
 	
 	return friendlies;
 
-func get_enemies(unit: Unit) -> Array[Unit]:
+func get_enemies(unit: Unit, is_active: bool = false) -> Array[Unit]:
 	var enemy_teams = teams.filter(func(team): return !team.get_children().has(unit));
 	if enemy_teams.is_empty(): return [];
 	
 	var enemies: Array[Unit] = [];
 	for team in enemy_teams:
-		var units = team.get_children().filter(func(unit): return unit is Unit);
+		var units = team.get_children().filter(func(unit):
+			if not unit is Unit: return false;
+			if is_active and !unit.alive: return false;
+			return true;
+		);
 		enemies.append_array(units);
 	
 	return enemies;

@@ -7,7 +7,7 @@ func name() -> String: return "Heal";
 
 func get_tile_info(caster: Unit, origin: Vector2i) -> Array[TileInfo]:
 	var result: Array[TileInfo] = [];
-	var friendlies = GameManager.units.get_friendles(caster);
+	var friendlies = GameManager.units.get_friendles(caster, true);
 	var positions = friendlies.map(func(unit): return unit.grid_position);
 	
 	for x in range(-range, range+1):
