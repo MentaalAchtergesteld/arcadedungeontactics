@@ -22,8 +22,8 @@ func _on_tile_clicked(position: Vector2i) -> void:
 	EventBus.hide_actions.emit();
 	
 	chosen_action.execute(caster, origin, position);
-	finished.emit();
 	is_controlling = false;
+	finish();
 
 func start(_caster: Unit, _origin: Vector2i) -> void:
 	chosen_action = null;

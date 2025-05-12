@@ -9,6 +9,7 @@
 [sub_resource type="Resource" id="Resource_yfaj3"]
 script = ExtResource("3_y2byr")
 range = 2
+heal = 1
 metadata/_custom_type_script = "uid://bdefl5x26t03k"
 
 [sub_resource type="Resource" id="Resource_lt30y"]

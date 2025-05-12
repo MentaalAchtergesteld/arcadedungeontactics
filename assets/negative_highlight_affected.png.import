@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddlbil275iei0"
-path="res://.godot/imported/neutral_highlight.png-39d72bbb70874f44d495cb13074e407d.ctex"
+uid="uid://cvbga3iddhyae"
+path="res://.godot/imported/negative_highlight_affected.png-05aaced661f480765ef434656bb1fff7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/neutral_highlight.png"
-dest_files=["res://.godot/imported/neutral_highlight.png-39d72bbb70874f44d495cb13074e407d.ctex"]
+source_file="res://assets/negative_highlight_affected.png"
+dest_files=["res://.godot/imported/negative_highlight_affected.png-05aaced661f480765ef434656bb1fff7.ctex"]
 
 [params]
 

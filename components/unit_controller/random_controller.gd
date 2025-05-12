@@ -7,14 +7,17 @@ func start(caster: Unit, origin: Vector2i) -> void:
 		return;
 	
 	var action: Action = actions.pick_random();
-	print("Action chosen: " + str(action.script.get_path()));
 	
 	var tiles = action.get_tile_info(caster, origin);
+	
 	var clickables = tiles.filter(func(tile: TileInfo): return tile.role == TileInfo.RoleType.Clickable);
 	if clickables.is_empty():
-		finished.emit();
+		finish();
 		return;
-	var random_clickable = clickables.pick_random();
-	action.execute(caster, origin, random_clickable.position);
 	
-	finished.emit();
+	var random_clickable = clickables.pick_random();
+	
+	action.execute(caster, origin, random_clickable.position);
+	await action.finished;
+	
+	finish();

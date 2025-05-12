@@ -2,6 +2,7 @@ class_name HealAction
 extends Action
 
 @export var range: int = 3;
+@export var heal: int = 1;
 
 func name() -> String: return "Heal";
 
@@ -29,6 +30,6 @@ func execute(
 ) -> void:
 	var target_unit = GameManager.units.get_unit_at_position(target);
 	if target_unit == null: return;
-	target_unit.health_component.heal(1);
+	target_unit.health_component.heal(heal);
 	
-	finished.emit();
+	finish();

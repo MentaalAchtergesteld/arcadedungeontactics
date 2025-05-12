@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://b3adu3hp6rpm8"]
+[gd_scene load_steps=23 format=4 uid="uid://b3adu3hp6rpm8"]
 
 [ext_resource type="Script" uid="uid://bscuwlowwy8ii" path="res://scenes/level/level.gd" id="1_h3e3j"]
 [ext_resource type="PackedScene" uid="uid://dw6tq28finwin" path="res://entities/unit/unit.tscn" id="2_nbgty"]
@@ -13,6 +13,7 @@
 [ext_resource type="Resource" uid="uid://cphikvpfwpwxw" path="res://resources/unit_definition/cyclops.tres" id="11_ivku7"]
 [ext_resource type="PackedScene" uid="uid://cgk6a4uoxt8vt" path="res://ui/action_chooser/action_chooser.tscn" id="12_m0bv2"]
 [ext_resource type="Resource" uid="uid://b4e16px0a4n0y" path="res://resources/unit_definition/ghost.tres" id="12_pm6rs"]
+[ext_resource type="Script" uid="uid://csqaqnkhd2xn8" path="res://components/unit_controller/unit_controller.gd" id="12_vrc4q"]
 [ext_resource type="PackedScene" uid="uid://cs5nt708g21yc" path="res://ui/win_display/win_display.tscn" id="15_vrc4q"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x4oov"]
@@ -144,6 +145,10 @@ metadata/_custom_type_script = "uid://hlpkw60qnjd7"
 script = ExtResource("6_pe1ox")
 metadata/_custom_type_script = "uid://drelgn24vd148"
 
+[sub_resource type="Resource" id="Resource_x4oov"]
+script = ExtResource("12_vrc4q")
+metadata/_custom_type_script = "uid://csqaqnkhd2xn8"
+
 [node name="Level" type="Node"]
 script = ExtResource("1_h3e3j")
 
@@ -183,8 +188,13 @@ definition = ExtResource("10_ivku7")
 script = ExtResource("4_hnne4")
 
 [node name="Cyclops" parent="Units/EnemyTeam" instance=ExtResource("2_nbgty")]
-position = Vector2(200, 72)
+position = Vector2(200, 56)
 controller = SubResource("Resource_ss4b2")
+definition = ExtResource("11_ivku7")
+
+[node name="Cyclops2" parent="Units/EnemyTeam" instance=ExtResource("2_nbgty")]
+position = Vector2(56, 104)
+controller = SubResource("Resource_x4oov")
 definition = ExtResource("11_ivku7")
 
 [node name="Ghost" parent="Units/EnemyTeam" instance=ExtResource("2_nbgty")]

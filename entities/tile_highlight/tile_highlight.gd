@@ -3,9 +3,15 @@ extends Node2D
 
 @onready var sprite: Sprite2D = $Sprite2D;
 
-@export var neutral_texture: Texture2D;
-@export var negative_texture: Texture2D;
-@export var positive_texture: Texture2D;
+@export var neutral_affected: Texture2D;
+@export var neutral_clickable: Texture2D;
+
+@export var negative_affected: Texture2D;
+@export var negative_clickable: Texture2D;
+
+@export var positive_affected: Texture2D;
+@export var positive_clickable: Texture2D;
+
 
 var size: Vector2 = Vector2(16, 16);
 var info: TileInfo;
@@ -17,21 +23,27 @@ func set_sprite() -> void:
 	
 	match info.effect:
 		TileInfo.EffectType.Neutral:
-			sprite.texture = neutral_texture;
+			if info.role == TileInfo.RoleType.Clickable:
+				sprite.texture = neutral_clickable;
+			else:
+				sprite.texture = neutral_affected;
 		TileInfo.EffectType.Negative:
-			sprite.texture = negative_texture;
+			if info.role == TileInfo.RoleType.Clickable:
+				sprite.texture = negative_clickable;
+			else:
+				sprite.texture = negative_affected;
 		TileInfo.EffectType.Positive:
-			sprite.texture = positive_texture;
+			if info.role == TileInfo.RoleType.Clickable:
+				sprite.texture = positive_clickable;
+			else:
+				sprite.texture = positive_affected;
+	
+	if info.role == TileInfo.RoleType.Clickable:
+		sprite.self_modulate.a = 1.;
+	else:
+		sprite.self_modulate.a = .75;
 	
 	sprite.scale = size / sprite.texture.get_size()
-	
-	match info.role:
-		TileInfo.RoleType.Clickable:
-			sprite.self_modulate.v = .75;
-			z_index = 1;
-		TileInfo.RoleType.Affected:
-			sprite.self_modulate.v = 1;
-			z_index = 0;
 
 func _ready() -> void:
 	if info == null: return;

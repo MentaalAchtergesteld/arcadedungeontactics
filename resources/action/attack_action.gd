@@ -2,6 +2,7 @@ class_name AttackAction
 extends Action
 
 @export var range: int = 3;
+@export var damage: int = 1;
 
 func name() -> String: return "Attack";
 
@@ -29,6 +30,6 @@ func execute(
 ) -> void:
 	var target_unit = GameManager.units.get_unit_at_position(target);
 	if target_unit == null: return;
-	target_unit.health_component.damage(1);
+	target_unit.health_component.damage(damage);
 	
-	finished.emit();
+	finish();

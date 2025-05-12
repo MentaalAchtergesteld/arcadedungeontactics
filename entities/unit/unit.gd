@@ -21,12 +21,11 @@ var grid_position: Vector2i:
 var alive: bool:
 	get: return health_component.current_health > 0;
 
-func _on_controller_finished():
-	turn_complete.emit();
-
 func start_turn():
 	await get_tree().create_timer(0.5).timeout;
 	controller.start(self, grid_position);
+	await controller.finished;
+	turn_complete.emit();
 
 func _on_health_depleted():
 	visible = false;
@@ -43,6 +42,5 @@ func _ready() -> void:
 	if !Engine.is_editor_hint():
 		health_component.health_depleted.connect(_on_health_depleted);
 		controller.setup(definition.actions);
-		controller.finished.connect(_on_controller_finished);
 	
 	update_definition();
