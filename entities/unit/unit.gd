@@ -25,7 +25,7 @@ func start_turn():
 	await get_tree().create_timer(0.5).timeout;
 	controller.start(self, grid_position);
 	await controller.finished;
-	turn_complete.emit();
+	turn_complete.emit.call_deferred();
 
 func _on_health_depleted():
 	visible = false;

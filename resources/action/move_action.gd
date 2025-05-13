@@ -28,5 +28,4 @@ func execute(
 	var path = Navigation.calculate_path(origin, target, range);
 	if path.is_empty(): push_warning("No path found to: " + str(target) + ", from: " + str(origin)); 
 	caster.position_component.move_along_absolute_path(path);
-	
 	finish();

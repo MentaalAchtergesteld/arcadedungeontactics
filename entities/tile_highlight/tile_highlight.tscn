@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://bp1dbaohjm736" path="res://assets/positive_highlight_clickable.png" id="7_t1wnd"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1gksq"]
-load_path = "res://.godot/imported/neutral_highlight.png-39d72bbb70874f44d495cb13074e407d.ctex"
 
 [node name="TileHighlight" type="Node2D"]
 script = ExtResource("1_73xjl")

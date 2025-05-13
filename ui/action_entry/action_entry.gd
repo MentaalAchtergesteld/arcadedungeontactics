@@ -1,6 +1,7 @@
 class_name ActionEntry
 extends PanelContainer
 
+signal dropped(action: Action, tile_position: Vector2i);
 signal selected(action: Action);
 
 @onready var action_name: Label = $ActionName;
@@ -29,6 +30,28 @@ func _on_button_pressed() -> void:
 
 func _ready() -> void:
 	update_action();
+
+var start_position: Vector2 = Vector2.ZERO;
+var is_dragging: bool = false;
+
+func _gui_input(event: InputEvent) -> void:
+	if not event is InputEventMouseButton: return;
+	
+	if is_dragging:
+		if !event.is_pressed():
+			is_dragging = false;
+			var centralized_position = global_position + size/2;
+			var world_position = Util.screen_to_world(centralized_position, GameManager.camera);
+			dropped.emit(action, Navigation.world_to_map(world_position));
+			global_position = start_position;
+			
+	elif event.is_pressed():
+		is_dragging = true;
+		start_position = global_position;
+
+func _process(delta: float) -> void:
+	if is_dragging:
+		global_position = get_global_mouse_position() - size/2;
 
 @warning_ignore("shadowed_variable")
 const ACTION_ENTRY = preload("res://ui/action_entry/action_entry.tscn");

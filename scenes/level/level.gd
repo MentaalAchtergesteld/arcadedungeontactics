@@ -16,7 +16,7 @@ func center_camera() -> void:
 
 func _ready() -> void:
 	EventBus.clear_winner.emit();
-	GameManager.setup_level(tilemap, map_objects , units);
+	GameManager.setup_level(tilemap, map_objects ,units, camera);
 	Navigation.setup_level(tilemap, units.get_units);
 	center_camera();
 	

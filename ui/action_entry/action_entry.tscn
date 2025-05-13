@@ -11,9 +11,3 @@ script = ExtResource("1_ij6j7")
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 32
-
-[node name="Button" type="Button" parent="."]
-layout_mode = 2
-flat = true
-
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
