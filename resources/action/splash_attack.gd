@@ -19,25 +19,32 @@ func generate_splash_positions(origin: Vector2i) -> Array[Vector2i]:
 	
 	return positions;
 
-func get_tile_info(caster: Unit, origin: Vector2i) -> Array[TileInfo]:
-	var result: Dictionary[Vector2i, TileInfo] = {};
-	var enemies = GameManager.units.get_enemies(caster, true);
-	var positions = enemies.map(func(unit): return unit.grid_position);
+func get_tile_info(origin: Vector2i, target: Vector2i) -> Array[TileInfo]:
+	var result: Array[TileInfo] = [];
 	
-	for position in positions:
-		var relative = position - origin;
-		if abs(relative.x) + abs(relative.y) > range: continue;
-		
-		for splash_position in generate_splash_positions(position):
-			var role: TileInfo.RoleType;
-			if splash_position == position:
-				role = TileInfo.RoleType.Clickable;
-			else:
-				role = TileInfo.RoleType.Affected;
-			
-			result[splash_position] = TileInfo.create(splash_position, role, TileInfo.EffectType.Negative);
+	if origin.distance_to(target) > range: return result;
+	#var positions = enemies.map(func(unit): return unit.grid_position);
 	
-	return result.values();
+	#for position in positions:
+	#	var relative = position - origin;
+	#	if abs(relative.x) + abs(relative.y) > range: continue;
+	#	
+	#	for splash_position in generate_splash_positions(position):
+	#		var role: TileInfo.RoleType;
+	#		if splash_position == position:
+	#			role = TileInfo.RoleType.Clickable;
+	#		else:
+	#			role = TileInfo.RoleType.Affected;
+	#		
+	#		result[splash_position] = TileInfo.create(splash_position, role, TileInfo.EffectType.Negative);
+	
+	for x in range(-splash_radius, splash_radius+1):
+		for y in range(-splash_radius, splash_radius+1):
+			result.append(TileInfo.create(Vector2i(x, y)+target, TileInfo.RoleType.Affected, TileInfo.EffectType.Negative));
+	
+	result.append(TileInfo.create(target, TileInfo.RoleType.Clickable, TileInfo.EffectType.Negative));
+	
+	return result;
 
 
 func execute(

@@ -9,16 +9,12 @@ var chosen_action: Action = null;
 
 func _on_action_chosen(action: Action) -> void:
 	if !is_controlling: return;
-	
 	chosen_action = action;
-	EventBus.clear_highlights.emit();
-	EventBus.highlight_tiles.emit(action.get_tile_info(caster, origin));
 
 func _on_tile_clicked(position: Vector2i) -> void:
 	if !is_controlling: return;
 	if chosen_action == null: return;
 	
-	EventBus.clear_highlights.emit();
 	EventBus.hide_actions.emit();
 	
 	chosen_action.execute(caster, origin, position);
@@ -31,7 +27,7 @@ func start(_caster: Unit, _origin: Vector2i) -> void:
 	caster = _caster;
 	origin = _origin;
 	
-	EventBus.show_actions.emit(actions);
+	EventBus.show_actions.emit(origin, actions);
 
 func setup(actions: Array[Action]) -> void:
 	super(actions);

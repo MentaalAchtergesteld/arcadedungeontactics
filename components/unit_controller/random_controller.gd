@@ -8,7 +8,7 @@ func start(caster: Unit, origin: Vector2i) -> void:
 	
 	var action: Action = actions.pick_random();
 	
-	var tiles = action.get_tile_info(caster, origin);
+	var tiles = action.get_tile_info(origin, origin);
 	
 	var clickables = tiles.filter(func(tile: TileInfo): return tile.role == TileInfo.RoleType.Clickable);
 	if clickables.is_empty():
