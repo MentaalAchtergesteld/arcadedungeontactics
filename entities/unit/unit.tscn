@@ -27,3 +27,11 @@ offset_top = -13.0
 offset_right = 6.0
 offset_bottom = -9.0
 health_component = NodePath("../HealthComponent")
+
+[node name="SelectedIndicator" type="ColorRect" parent="."]
+z_index = 1
+z_as_relative = false
+offset_left = -1.0
+offset_top = -12.0
+offset_right = 1.0
+offset_bottom = -10.0

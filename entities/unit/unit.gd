@@ -21,11 +21,19 @@ var grid_position: Vector2i:
 var alive: bool:
 	get: return health_component.current_health > 0;
 
+func select():
+	$SelectedIndicator.visible = true;
+
+func deselect():
+	$SelectedIndicator.visible = false;
+
 func start_turn():
+	select();
 	await get_tree().create_timer(0.5).timeout;
 	controller.start(self, grid_position);
 	await controller.finished;
 	turn_complete.emit.call_deferred();
+	deselect();
 
 func _on_health_depleted():
 	visible = false;
