@@ -5,13 +5,10 @@ extends Action
 @export var heal: int = 1;
 
 func name() -> String: return "Heal";
+func effect() -> Effect: return Effect.Positive;
 
 func get_tile_info(origin: Vector2i, target: Vector2i) -> Array[Vector2i]:
 	var result: Array[Vector2i] = [];
-	
-	#result.append(TileInfo.create(target, TileInfo.RoleType.Clickable, TileInfo.EffectType.Positive));
-	#result.append(TileInfo.create(target, TileInfo.RoleType.Affected, TileInfo.EffectType.Positive));
-	
 	result.append(target);
 	
 	return result;

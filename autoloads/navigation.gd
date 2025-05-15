@@ -40,7 +40,7 @@ func setup_level(_tilemap: TileMapLayer, _unit_lookup: Callable) -> void:
 	unit_lookup = _unit_lookup;
 	
 	astar_grid = AStarGrid2D.new();
-
+	
 	update_astar_grid();
 
 func map_to_world(grid_pos: Vector2i) -> Vector2:

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://ccwe0jb5kin85"]
+[gd_scene load_steps=3 format=3 uid="uid://ccwe0jb5kin85"]
 
 [ext_resource type="Script" uid="uid://h3ueacd7fsns" path="res://ui/action_entry/action_entry.gd" id="1_ij6j7"]
+[ext_resource type="Script" uid="uid://hwb7ebyjqsxx" path="res://components/drag_component/drag_component.gd" id="2_fc0rx"]
 
 [node name="ActionEntry" type="PanelContainer"]
 offset_right = 40.0
@@ -11,3 +12,10 @@ script = ExtResource("1_ij6j7")
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 32
+
+[node name="DragComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("2_fc0rx")
+actor = NodePath("..")
+
+[connection signal="dragged" from="DragComponent" to="." method="_on_dragged"]
+[connection signal="dropped" from="DragComponent" to="." method="_on_dropped"]

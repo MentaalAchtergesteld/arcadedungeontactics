@@ -4,30 +4,17 @@ extends Action
 @export var range: int = 3;
 
 func name() -> String: return "Move";
+func effect() -> Effect: return Effect.Neutral;
 
 func get_tile_info(origin: Vector2i, target: Vector2i) -> Array[Vector2i]:
+	var path: PackedVector2Array = Navigation.calculate_path(origin, target, range)
 	var result: Array[Vector2i] = [];
-	
-	#for x in range(-range, range+1):
-	#	for y in range(-range, range+1):
-	#		if abs(x) + abs(y) > range: continue;
-	#		var position = origin + Vector2i(x, y);
-	#		if !Navigation.can_move_to(origin, position, range): continue;
-	#		
-	#		result.append(TileInfo.create(position, TileInfo.RoleType.Clickable, TileInfo.EffectType.Neutral));
-	#		result.append(TileInfo.create(position, TileInfo.RoleType.Affected, TileInfo.EffectType.Neutral));
-	#
-	#return result;
-	
-	var path = Navigation.calculate_path(origin, target, range);
-	
-	if path.is_empty(): return result;
-	
-	for pos in path:
-		result.append(pos as Vector2i);
-	
-	#result.append(TileInfo.create(origin, TileInfo.RoleType.Clickable, TileInfo.EffectType.Neutral));
-	return result;
+	for v in path:
+		result.append(v as Vector2i)
+	return result
+
+func is_in_range(origin: Vector2i, pos: Vector2i) -> bool:
+	return origin.distance_to(pos) <= range;
 
 func execute(
 	caster: Unit,

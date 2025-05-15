@@ -6,8 +6,12 @@ signal hide_actions;
 signal show_actions(actions: Array[Action]);
 signal action_chosen(action: Action);
 
+signal clear_all_highlights;
+signal clear_radius_highlights(center: Vector2i, radius: int);
+signal clear_area_highlights(area: Array[Vector2i]);
+
 signal highlight_area(primary: Vector2i, area: Array[Vector2i], color: Color);
-signal clear_area_highlight(area: Array[Vector2i]);
+signal highlight_radius(center: Vector2i, radius: int, color: Color);
 
 signal highlight_tiles(tiles: Array[TileInfo]);
 signal clear_highlights;

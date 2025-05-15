@@ -8,6 +8,7 @@ extends Action
 @export var damage_falloff: Curve = Curve.new();
 
 func name() -> String: return "Splash Attack";
+func effect() -> Effect: return Effect.Negative;
 
 func generate_splash_positions(origin: Vector2i) -> Array[Vector2i]:
 	var positions: Array[Vector2i] = [];
@@ -23,29 +24,13 @@ func get_tile_info(origin: Vector2i, target: Vector2i) -> Array[Vector2i]:
 	var result: Array[Vector2i] = [];
 	
 	if origin.distance_to(target) > range: return result;
-	#var positions = enemies.map(func(unit): return unit.grid_position);
-	
-	#for position in positions:
-	#	var relative = position - origin;
-	#	if abs(relative.x) + abs(relative.y) > range: continue;
-	#	
-	#	for splash_position in generate_splash_positions(position):
-	#		var role: TileInfo.RoleType;
-	#		if splash_position == position:
-	#			role = TileInfo.RoleType.Clickable;
-	#		else:
-	#			role = TileInfo.RoleType.Affected;
-	#		
-	#		result[splash_position] = TileInfo.create(splash_position, role, TileInfo.EffectType.Negative);
-	
 	for x in range(-splash_radius, splash_radius+1):
 		for y in range(-splash_radius, splash_radius+1):
 			result.append(Vector2i(x, y)+target);
-	
-	#result.append(TileInfo.create(target, TileInfo.RoleType.Clickable, TileInfo.EffectType.Negative));
-	
 	return result;
 
+func is_in_range(origin: Vector2i, pos: Vector2i) -> bool:
+	return origin.distance_to(pos) <= range;
 
 func execute(
 	caster: Unit,
