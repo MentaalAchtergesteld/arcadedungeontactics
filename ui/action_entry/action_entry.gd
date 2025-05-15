@@ -44,7 +44,7 @@ func _gui_input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	if is_dragging:
 		EventBus.clear_highlights.emit();
-		EventBus.highlight_tiles.emit(action.get_tile_info(origin,grid_position));
+		EventBus.highlight_area.emit(grid_position, action.get_tile_info(origin,grid_position), TileHighlighter.NEUTRAL);
 		global_position = get_global_mouse_position() - size/2;
 
 @warning_ignore("shadowed_variable")

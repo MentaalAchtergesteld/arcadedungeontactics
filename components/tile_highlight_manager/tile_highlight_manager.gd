@@ -1,28 +1,55 @@
-class_name  TileHighlightManager
+class_name  TileHighlighter
 extends Node2D
 
-signal tile_clicked(position: Vector2i);
+@export var area_texture: Texture2D;
+@export var primary_texture: Texture2D;
 
-var clickable_tiles: Array[Vector2i];
+@export_group("Colors")
 
-func highlight_tiles(tiles: Array[TileInfo]) -> void:
-	for tile_info in tiles:
-		if tile_info.role == TileInfo.RoleType.Clickable:
-			clickable_tiles.append(tile_info.position);
-		add_child(TileHighlight.create(tile_info, Navigation.tile_size));
+static var NEUTRAL: Color = Color.ROYAL_BLUE;
+static var POSITIVE: Color = Color.LIME_GREEN;
+static var NEGATIVE: Color = Color.BROWN;
+static var RANGE: Color = Color.DIM_GRAY;
 
-func clear_highlights() -> void:
-	clickable_tiles.clear();
-	for child in get_children():
-		remove_child(child);
+var highlights: Dictionary[Vector2i, Sprite2D] = {};
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("left_click"):
-		var pos = Navigation.world_to_map(get_global_mouse_position());
-		if clickable_tiles.has(pos):
-			tile_clicked.emit(pos);
-			EventBus.tile_clicked.emit(pos);
+func create_highlight(pos: Vector2i, color: Color, is_primary: bool = false) -> Sprite2D:
+	var sprite = Sprite2D.new()
+	sprite.texture = primary_texture if is_primary else area_texture;
+	sprite.self_modulate = color;
+	
+	sprite.global_position = Navigation.map_to_world(pos);
+	
+	return sprite;
+
+func remove_highlight(pos: Vector2i) -> void:
+	if highlights.has(pos):
+		var highlight = highlights.get(pos);
+		highlight.queue_free()
+		highlights.erase(pos);
+
+func add_highlight(pos: Vector2i, color: Color, is_primary: bool = false) -> void:
+	remove_highlight(pos);
+	var highlight = create_highlight(pos, color, is_primary);
+	highlights.set(pos, highlight);
+	add_child(highlight);
+
+func clear_all_highlights() -> void:
+	for pos in highlights.keys():
+		remove_highlight(pos);
+
+func clear_area_highlight(area: Array[Vector2i]) -> void:
+	for pos in area:
+		remove_highlight(pos);
+
+func highlight_area(primary: Vector2i, area: Array[Vector2i], color: Color) -> void:
+	add_highlight(primary, color, true);
+	
+	for pos in area:
+		if pos == primary: continue;
+		add_highlight(pos, color);
 
 func _ready() -> void:
-	EventBus.highlight_tiles.connect(highlight_tiles);
-	EventBus.clear_highlights.connect(clear_highlights);
+	EventBus.highlight_area.connect(highlight_area);
+	EventBus.clear_area_highlight.connect(clear_area_highlight);
+	EventBus.clear_highlights.connect(clear_all_highlights);

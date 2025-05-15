@@ -5,8 +5,8 @@ extends Action
 
 func name() -> String: return "Move";
 
-func get_tile_info(origin: Vector2i, target: Vector2i) -> Array[TileInfo]:
-	var result: Array[TileInfo] = [];
+func get_tile_info(origin: Vector2i, target: Vector2i) -> Array[Vector2i]:
+	var result: Array[Vector2i] = [];
 	
 	#for x in range(-range, range+1):
 	#	for y in range(-range, range+1):
@@ -20,12 +20,13 @@ func get_tile_info(origin: Vector2i, target: Vector2i) -> Array[TileInfo]:
 	#return result;
 	
 	var path = Navigation.calculate_path(origin, target, range);
+	
 	if path.is_empty(): return result;
 	
 	for pos in path:
-		result.append(TileInfo.create(pos, TileInfo.RoleType.Affected, TileInfo.EffectType.Neutral));
+		result.append(pos as Vector2i);
 	
-	result.append(TileInfo.create(origin, TileInfo.RoleType.Clickable, TileInfo.EffectType.Neutral));
+	#result.append(TileInfo.create(origin, TileInfo.RoleType.Clickable, TileInfo.EffectType.Neutral));
 	return result;
 
 func execute(

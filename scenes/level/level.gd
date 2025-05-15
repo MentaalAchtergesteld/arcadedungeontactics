@@ -6,7 +6,6 @@ extends Node
 @onready var map_objects: Node2D = $MapObjects;
 @onready var units: UnitTeamContainer = $Units;
 
-
 func center_camera() -> void:
 	var used_rect = tilemap.get_used_rect();
 	var rect_center = used_rect.position + used_rect.size/2;

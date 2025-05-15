@@ -8,7 +8,7 @@ func name() -> String: return "Action";
 func finish() -> void:
 	call_deferred("emit_signal", "finished");
 
-func get_tile_info(origin: Vector2i, target: Vector2i) -> Array[TileInfo]:
+func get_tile_info(origin: Vector2i, target: Vector2i) -> Array[Vector2i]:
 	return [];
 
 func execute(

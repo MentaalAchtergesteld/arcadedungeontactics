@@ -19,8 +19,8 @@ func generate_splash_positions(origin: Vector2i) -> Array[Vector2i]:
 	
 	return positions;
 
-func get_tile_info(origin: Vector2i, target: Vector2i) -> Array[TileInfo]:
-	var result: Array[TileInfo] = [];
+func get_tile_info(origin: Vector2i, target: Vector2i) -> Array[Vector2i]:
+	var result: Array[Vector2i] = [];
 	
 	if origin.distance_to(target) > range: return result;
 	#var positions = enemies.map(func(unit): return unit.grid_position);
@@ -40,9 +40,9 @@ func get_tile_info(origin: Vector2i, target: Vector2i) -> Array[TileInfo]:
 	
 	for x in range(-splash_radius, splash_radius+1):
 		for y in range(-splash_radius, splash_radius+1):
-			result.append(TileInfo.create(Vector2i(x, y)+target, TileInfo.RoleType.Affected, TileInfo.EffectType.Negative));
+			result.append(Vector2i(x, y)+target);
 	
-	result.append(TileInfo.create(target, TileInfo.RoleType.Clickable, TileInfo.EffectType.Negative));
+	#result.append(TileInfo.create(target, TileInfo.RoleType.Clickable, TileInfo.EffectType.Negative));
 	
 	return result;
 

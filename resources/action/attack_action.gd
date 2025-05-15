@@ -6,11 +6,13 @@ extends Action
 
 func name() -> String: return "Attack";
 
-func get_tile_info(origin: Vector2i, target: Vector2i) -> Array[TileInfo]:
-	var result: Array[TileInfo] = [];
+func get_tile_info(origin: Vector2i, target: Vector2i) -> Array[Vector2i]:
+	var result: Array[Vector2i] = [];
 	
-	result.append(TileInfo.create(target, TileInfo.RoleType.Clickable, TileInfo.EffectType.Negative))
-	result.append(TileInfo.create(target, TileInfo.RoleType.Affected, TileInfo.EffectType.Negative))
+	#result.append(TileInfo.create(target, TileInfo.RoleType.Clickable, TileInfo.EffectType.Negative))
+	#result.append(TileInfo.create(target, TileInfo.RoleType.Affected, TileInfo.EffectType.Negative))
+	
+	result.append(target);
 	
 	return result;
 
