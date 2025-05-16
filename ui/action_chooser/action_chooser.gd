@@ -14,8 +14,7 @@ func _on_action_selected(action: Action):
 	EventBus.action_chosen.emit(action);
 
 func _on_action_dropped(action: Action, tile_position: Vector2i) -> void:
-	EventBus.action_chosen.emit(action);
-	EventBus.tile_clicked.emit(tile_position);
+	EventBus.action_chosen.emit(action, tile_position);
 
 func _on_hide_actions() -> void:
 	for child in action_box.get_children():

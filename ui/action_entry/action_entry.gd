@@ -24,7 +24,7 @@ func _ready() -> void:
 func _on_dropped(pos: Vector2) -> void:
 	EventBus.clear_all_highlights.emit();
 	var grid_position = pos_to_grid(pos);
-	if action.is_in_range(origin, grid_position):
+	if action.is_in_range(origin, grid_position) && !Navigation.is_tile_solid(grid_position):
 		dropped.emit(action, grid_position);
 
 func highlight_action_areas(pos: Vector2) -> void:

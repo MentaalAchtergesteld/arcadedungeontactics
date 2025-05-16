@@ -1,10 +1,10 @@
 extends Node
 
-signal execute_action(caster: Unit, origin: Vector2i, target: Vector2i, action: Action);
+#signal execute_action(caster: Unit, origin: Vector2i, target: Vector2i, action: Action);
 
 signal hide_actions;
 signal show_actions(actions: Array[Action]);
-signal action_chosen(action: Action);
+signal action_chosen(action: Action, position: Vector2i);
 
 signal clear_all_highlights;
 signal clear_radius_highlights(center: Vector2i, radius: int);

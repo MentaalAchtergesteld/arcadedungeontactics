@@ -21,6 +21,9 @@ func get_tile_info(origin: Vector2i, target: Vector2i) -> Array[Vector2i]:
 func is_in_range(origin: Vector2i, pos: Vector2i) -> bool:
 	return false;
 
+func is_position_valid(pos: Vector2i) -> bool:
+	return !Navigation.is_tile_solid(pos);
+
 func execute(
 	caster: Unit,
 	origin: Vector2i,

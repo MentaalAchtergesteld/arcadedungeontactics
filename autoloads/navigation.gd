@@ -80,3 +80,6 @@ func is_position_free(position: Vector2i) -> bool:
 	if astar_grid.is_point_solid(position):
 		return false;
 	return true;
+
+func is_tile_solid(position: Vector2i) -> bool:
+	return tilemap.get_cell_tile_data(position).get_custom_data("is_solid");
