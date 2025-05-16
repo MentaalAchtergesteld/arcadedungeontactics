@@ -1,39 +1,13 @@
-[gd_resource type="Resource" script_class="UnitDefinition" load_steps=11 format=3 uid="uid://bk6jkpq2anntw"]
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=4 format=3 uid="uid://bk6jkpq2anntw"]
 
-[ext_resource type="Script" uid="uid://jo33uuraynnh" path="res://resources/action/action.gd" id="1_br0x5"]
-[ext_resource type="Script" uid="uid://brphtc55lqc1u" path="res://resources/action/attack_action.gd" id="3_br0x5"]
-[ext_resource type="Script" uid="uid://euevhlt0vsaw" path="res://resources/action/move_action.gd" id="3_kclax"]
-[ext_resource type="Script" uid="uid://6nb24ky1xa31" path="res://resources/action/splash_attack.gd" id="4_70iav"]
+[ext_resource type="Script" uid="uid://dph6c8eprw4j6" path="res://resources/action/action.gd" id="1_dwjnc"]
 [ext_resource type="Script" uid="uid://cglx2ilj6bopn" path="res://resources/unit_definition/unit_definition.gd" id="4_c24gg"]
 [ext_resource type="Texture2D" uid="uid://dibkxv3a1vs2" path="res://assets/kenney_tiny-dungeon/Tiles/tile_0096.png" id="5_br0x5"]
-
-[sub_resource type="Resource" id="Resource_lt30y"]
-script = ExtResource("3_kclax")
-range = 1
-metadata/_custom_type_script = "uid://euevhlt0vsaw"
-
-[sub_resource type="Resource" id="Resource_70iav"]
-script = ExtResource("3_br0x5")
-range = 2
-damage = 1
-metadata/_custom_type_script = "uid://brphtc55lqc1u"
-
-[sub_resource type="Curve" id="Curve_kclax"]
-_data = [Vector2(0, 1), 0.0, -0.5, 0, 1, Vector2(1, 0.5), -0.5, 0.0, 1, 0]
-point_count = 2
-
-[sub_resource type="Resource" id="Resource_c24gg"]
-script = ExtResource("4_70iav")
-range = 3
-damage = 3
-splash_radius = 1
-damage_falloff = SubResource("Curve_kclax")
-metadata/_custom_type_script = "uid://6nb24ky1xa31"
 
 [resource]
 script = ExtResource("4_c24gg")
 name = "Knight"
-actions = Array[ExtResource("1_br0x5")]([SubResource("Resource_lt30y"), SubResource("Resource_70iav"), SubResource("Resource_c24gg")])
+actions = Array[ExtResource("1_dwjnc")]([])
 max_health = 4
 texture = ExtResource("5_br0x5")
 metadata/_custom_type_script = "uid://cglx2ilj6bopn"

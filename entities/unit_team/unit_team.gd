@@ -25,8 +25,12 @@ func start_turn() -> void:
 	
 	while unit_index < active_units.size():
 		var unit: Unit = active_units[unit_index];
+		unit.select();
 		unit.start_turn();
 		await unit.turn_complete;
+		
+		await get_tree().create_timer(GameManager.game_speed).timeout;
+		unit.deselect();
 		
 		unit_index += 1;
 	

@@ -6,7 +6,7 @@ signal finished;
 var actions: Array[Action] = [];
 
 func finish() -> void:
-	call_deferred("emit_signal", "finished");
+	finished.emit.call_deferred();
 
 func start(caster: Unit, origin: Vector2i):
 	finish();

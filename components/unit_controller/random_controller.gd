@@ -2,16 +2,11 @@ class_name RandomController
 extends UnitController
 
 func start(caster: Unit, origin: Vector2i) -> void:
-	if actions.is_empty():
-		finished.emit();
-		return;
 	
+	if actions.is_empty(): return finish();
 	var action: Action = actions.pick_random();
 	
-	var tiles = action.get_tile_info(origin, origin);
-	
-	
-	#action.execute(caster, origin, random_clickable.position);
+	action.execute(caster, origin, Vector2i(0, 0));
 	await action.finished;
 	
 	finish();

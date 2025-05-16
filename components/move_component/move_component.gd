@@ -49,4 +49,4 @@ func move_along_absolute_path(path: Array[Vector2i]) -> void:
 		);
 		
 	await tween.finished;
-	movement_finished.emit();
+	movement_finished.emit.call_deferred();

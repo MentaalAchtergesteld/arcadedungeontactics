@@ -1,32 +1,13 @@
-[gd_resource type="Resource" script_class="UnitDefinition" load_steps=9 format=3 uid="uid://cphikvpfwpwxw"]
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=4 format=3 uid="uid://cphikvpfwpwxw"]
 
-[ext_resource type="Script" uid="uid://jo33uuraynnh" path="res://resources/action/action.gd" id="1_qqmgp"]
-[ext_resource type="Script" uid="uid://6nb24ky1xa31" path="res://resources/action/splash_attack.gd" id="3_0c3g5"]
-[ext_resource type="Script" uid="uid://euevhlt0vsaw" path="res://resources/action/move_action.gd" id="4_axhv1"]
+[ext_resource type="Script" uid="uid://dph6c8eprw4j6" path="res://resources/action/action.gd" id="1_m40cm"]
 [ext_resource type="Script" uid="uid://cglx2ilj6bopn" path="res://resources/unit_definition/unit_definition.gd" id="5_r62v8"]
 [ext_resource type="Texture2D" uid="uid://o4cc1jwrf3ka" path="res://assets/kenney_tiny-dungeon/Tiles/tile_0109.png" id="6_qqmgp"]
-
-[sub_resource type="Resource" id="Resource_lt30y"]
-script = ExtResource("4_axhv1")
-range = 1
-metadata/_custom_type_script = "uid://euevhlt0vsaw"
-
-[sub_resource type="Curve" id="Curve_0c3g5"]
-_data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
-point_count = 2
-
-[sub_resource type="Resource" id="Resource_qqmgp"]
-script = ExtResource("3_0c3g5")
-range = 3
-damage = 3
-splash_radius = 1
-damage_falloff = SubResource("Curve_0c3g5")
-metadata/_custom_type_script = "uid://6nb24ky1xa31"
 
 [resource]
 script = ExtResource("5_r62v8")
 name = "Cyclops"
-actions = Array[ExtResource("1_qqmgp")]([SubResource("Resource_lt30y"), SubResource("Resource_qqmgp")])
+actions = Array[ExtResource("1_m40cm")]([])
 max_health = 5
 texture = ExtResource("6_qqmgp")
 metadata/_custom_type_script = "uid://cglx2ilj6bopn"

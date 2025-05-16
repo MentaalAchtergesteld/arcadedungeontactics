@@ -56,8 +56,8 @@ func world_to_map(world_pos: Vector2) -> Vector2i:
 		return Vector2i.ZERO;
 	return tilemap.local_to_map(world_pos);
 
-func calculate_path(origin: Vector2i, target: Vector2i, max_range: int = -1) -> PackedVector2Array:
-	var path: PackedVector2Array = [];
+func calculate_path(origin: Vector2i, target: Vector2i, max_range: int = -1) -> Array[Vector2i]:
+	var path: Array[Vector2i] = [];
 	var rect = tilemap.get_used_rect(); 
 	if not rect.has_point(origin) or not rect.has_point(target):
 		return path;
@@ -66,7 +66,7 @@ func calculate_path(origin: Vector2i, target: Vector2i, max_range: int = -1) -> 
 		return path;
 	update_astar_grid();
 	
-	path = astar_grid.get_point_path(origin, target);
+	path = Util.packed_to_vector2i(astar_grid.get_point_path(origin, target));
 	
 	if max_range > -1 and path.size() > max_range + 1:
 		return [];
@@ -82,4 +82,5 @@ func is_position_free(position: Vector2i) -> bool:
 	return true;
 
 func is_tile_solid(position: Vector2i) -> bool:
+	if !tilemap.get_used_rect().has_point(position): return false;
 	return tilemap.get_cell_tile_data(position).get_custom_data("is_solid");

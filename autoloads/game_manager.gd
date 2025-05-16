@@ -1,5 +1,7 @@
 extends Node
 
+var game_speed = 0.5;
+
 var tilemap: TileMapLayer;
 var map_objects: Node2D;
 var units: UnitTeamContainer;

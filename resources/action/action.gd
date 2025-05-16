@@ -1,32 +1,26 @@
-class_name Action
+class_name Action;
 extends Resource
 
-signal finished;
+signal executed;
 
 enum Effect {
 	Neutral,
 	Positive,
 	Negative
-};
+}
 
 func name() -> String: return "Action";
 func effect() -> Effect: return Effect.Neutral;
 
-func finish() -> void:
-	call_deferred("emit_signal", "finished");
-
-func get_tile_info(origin: Vector2i, target: Vector2i) -> Array[Vector2i]:
+func get_valid_target_tiles(caster: Unit, origin: Vector2i) -> Array[Vector2i]:
 	return [];
 
-func is_in_range(origin: Vector2i, pos: Vector2i) -> bool:
-	return false;
+func is_valid_target(caster: Unit, origin: Vector2i, target: Vector2i) -> bool:
+	return get_valid_target_tiles(caster, origin).has(target);
 
-func is_position_valid(pos: Vector2i) -> bool:
-	return !Navigation.is_tile_solid(pos);
+func get_effect_tiles(caster: Unit, origin: Vector2i, target: Vector2i) -> Array[Vector2i]:
+	return [];
 
-func execute(
-	caster: Unit,
-	origin: Vector2i,
-	target: Vector2i,
-) -> void:
-	finish();
+func execute(caster: Unit, origin: Vector2i, target: Vector2i) -> void:
+	
+	executed.emit.call_deferred();

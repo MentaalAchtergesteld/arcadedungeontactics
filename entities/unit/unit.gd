@@ -1,3 +1,4 @@
+@tool
 class_name Unit
 extends Node2D
 
@@ -27,12 +28,9 @@ func deselect():
 	$SelectedIndicator.visible = false;
 
 func start_turn():
-	select();
-	await get_tree().create_timer(0.5).timeout;
 	controller.start(self, grid_position);
 	await controller.finished;
 	turn_complete.emit.call_deferred();
-	deselect();
 
 func _on_health_depleted():
 	visible = false;
@@ -41,9 +39,9 @@ func _on_health_depleted():
 func update_definition() -> void:
 	if definition == null: return;
 	name = definition.name;
-	sprite.texture = definition.texture;
-	health_component.max_health = definition.max_health;
-	health_component.current_health = health_component.max_health;
+	$Sprite2D.texture = definition.texture;
+	$HealthComponent.max_health = definition.max_health;
+	$HealthComponent.current_health = health_component.max_health;
 
 func _ready() -> void:
 	if !Engine.is_editor_hint():

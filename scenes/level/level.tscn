@@ -13,30 +13,33 @@
 [ext_resource type="Resource" uid="uid://cphikvpfwpwxw" path="res://resources/unit_definition/cyclops.tres" id="11_ivku7"]
 [ext_resource type="PackedScene" uid="uid://cgk6a4uoxt8vt" path="res://ui/action_chooser/action_chooser.tscn" id="12_m0bv2"]
 [ext_resource type="Resource" uid="uid://b4e16px0a4n0y" path="res://resources/unit_definition/ghost.tres" id="12_pm6rs"]
-[ext_resource type="Script" uid="uid://csqaqnkhd2xn8" path="res://components/unit_controller/unit_controller.gd" id="12_vrc4q"]
 [ext_resource type="PackedScene" uid="uid://cs5nt708g21yc" path="res://ui/win_display/win_display.tscn" id="15_vrc4q"]
 [ext_resource type="Texture2D" uid="uid://vhusdsx3cvq0" path="res://assets/grayscale_primary.png" id="16_ivku7"]
 [ext_resource type="Texture2D" uid="uid://0o2qyaaam6ua" path="res://assets/grayscale_highlight.png" id="17_ss4b2"]
 
-[sub_resource type="Resource" id="Resource_pm6rs"]
+[sub_resource type="Resource" id="Resource_m0bv2"]
 script = ExtResource("7_b7m21")
 metadata/_custom_type_script = "uid://hlpkw60qnjd7"
 
-[sub_resource type="Resource" id="Resource_0fkkc"]
+[sub_resource type="Resource" id="Resource_pm6rs"]
 script = ExtResource("6_pe1ox")
 metadata/_custom_type_script = "uid://drelgn24vd148"
 
-[sub_resource type="Resource" id="Resource_qjqsm"]
-script = ExtResource("7_b7m21")
-metadata/_custom_type_script = "uid://hlpkw60qnjd7"
-
-[sub_resource type="Resource" id="Resource_ss4b2"]
+[sub_resource type="Resource" id="Resource_vrc4q"]
 script = ExtResource("6_pe1ox")
 metadata/_custom_type_script = "uid://drelgn24vd148"
 
 [sub_resource type="Resource" id="Resource_x4oov"]
-script = ExtResource("12_vrc4q")
-metadata/_custom_type_script = "uid://csqaqnkhd2xn8"
+script = ExtResource("6_pe1ox")
+metadata/_custom_type_script = "uid://drelgn24vd148"
+
+[sub_resource type="Resource" id="Resource_ivku7"]
+script = ExtResource("6_pe1ox")
+metadata/_custom_type_script = "uid://drelgn24vd148"
+
+[sub_resource type="Resource" id="Resource_ss4b2"]
+script = ExtResource("6_pe1ox")
+metadata/_custom_type_script = "uid://drelgn24vd148"
 
 [node name="Level" type="Node"]
 script = ExtResource("1_h3e3j")
@@ -62,17 +65,17 @@ script = ExtResource("4_hnne4")
 
 [node name="Player" parent="Units/FriendlyTeam" instance=ExtResource("2_nbgty")]
 position = Vector2(40, 56)
-controller = SubResource("Resource_pm6rs")
+controller = SubResource("Resource_m0bv2")
 definition = ExtResource("8_x4oov")
 
 [node name="Knight" parent="Units/FriendlyTeam" instance=ExtResource("2_nbgty")]
 position = Vector2(104, 88)
-controller = SubResource("Resource_0fkkc")
+controller = SubResource("Resource_pm6rs")
 definition = ExtResource("10_ivku7")
 
 [node name="Knight2" parent="Units/FriendlyTeam" instance=ExtResource("2_nbgty")]
 position = Vector2(40, 104)
-controller = SubResource("Resource_qjqsm")
+controller = SubResource("Resource_vrc4q")
 definition = ExtResource("10_ivku7")
 
 [node name="EnemyTeam" type="Node2D" parent="Units"]
@@ -80,12 +83,12 @@ script = ExtResource("4_hnne4")
 
 [node name="Cyclops" parent="Units/EnemyTeam" instance=ExtResource("2_nbgty")]
 position = Vector2(200, 56)
-controller = SubResource("Resource_ss4b2")
+controller = SubResource("Resource_x4oov")
 definition = ExtResource("11_ivku7")
 
 [node name="Cyclops2" parent="Units/EnemyTeam" instance=ExtResource("2_nbgty")]
 position = Vector2(56, 104)
-controller = SubResource("Resource_x4oov")
+controller = SubResource("Resource_ivku7")
 definition = ExtResource("11_ivku7")
 
 [node name="Ghost" parent="Units/EnemyTeam" instance=ExtResource("2_nbgty")]
