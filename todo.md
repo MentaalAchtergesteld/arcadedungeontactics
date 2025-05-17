@@ -31,10 +31,10 @@
 ## Tech & Architectuur
 - [/] Navigation singleton voor grid-aligning en pathfinding
 - [/] GameManager singleton voor toegang tot UnitTeamContainer en dergelijke.
-- [ ] Unit-data via UnitDefinition (Resource)
+- [*] Unit-data via UnitDefinition (Resource)
 - [*] Level scene met duidelijke hiërarchie: TileMap, Units, Objects, Effects
 - [X] World renderen met Camera2D zoom (pixelart) + HD UI layer
 
 ## Polish (optioneel)
-- [ ] Eenvoudige hit-effecten of animaties
+- [/] Eenvoudige hit-effecten of animaties
 - [*] Highlighting van bereikbare tegels of doelen
