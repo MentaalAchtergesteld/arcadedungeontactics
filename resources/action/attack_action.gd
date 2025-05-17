@@ -27,6 +27,11 @@ func clear_cache() -> void:
 
 func execute(caster: Unit, origin: Vector2i, target: Vector2i) -> void:
 	
+	var lightning_position = Navigation.map_to_world(target) + Vector2(0, Navigation.tile_size.y / 2);
+	var lightning = Lightning.create(lightning_position);
+	GameManager.map_objects.add_child(lightning);
+	await lightning.hit;
+	
 	var unit = GameManager.units.get_unit_at_position(target);
 	if unit != null:
 		unit.health_component.damage(damage);
