@@ -18,6 +18,7 @@ func _on_animated_sprite_2d_frame_changed() -> void:
 	if $AnimatedSprite2D.frame == 5:
 		$CPUParticles2D.emitting = true;
 		hit.emit();
+		$HitboxComponent.enabled = true;
 
 const LIGHTNING = preload("res://entities/lightning/lightning.tscn")
 static func create(position: Vector2) -> Lightning:

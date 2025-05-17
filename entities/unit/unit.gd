@@ -33,8 +33,11 @@ func start_turn():
 	turn_complete.emit.call_deferred();
 
 func _on_health_depleted():
-	visible = false;
 	died.emit();
+	$CPUParticles2D.emitting = true;
+	await get_tree().create_timer(0.2).timeout;
+	visible = false;
+
 
 func update_definition() -> void:
 	if definition == null: return;
@@ -49,3 +52,6 @@ func _ready() -> void:
 		controller.setup(definition.actions);
 	
 	update_definition();
+
+func _on_hurtbox_component_hurt(attacker: Node, damage: int) -> void:
+	health_component.damage(damage);

@@ -32,9 +32,9 @@ func execute(caster: Unit, origin: Vector2i, target: Vector2i) -> void:
 	GameManager.map_objects.add_child(lightning);
 	await lightning.hit;
 	
-	var unit = GameManager.units.get_unit_at_position(target);
-	if unit != null:
-		unit.health_component.damage(damage);
+	#var unit = GameManager.units.get_unit_at_position(target);
+	#if unit != null:
+	#	unit.health_component.damage(damage);
 	
 	clear_cache();
 	executed.emit.call_deferred();
