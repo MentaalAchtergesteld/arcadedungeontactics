@@ -7,9 +7,9 @@
 
 ## Core Gameplay
 - [*] TileMap-grid met vaste tilegrootte
-- [ ] Speler kan acties kiezen en uitvoeren (beweging, aanval, ability)
+- [*] Speler kan acties kiezen en uitvoeren (beweging, aanval, ability)
 - [ ] Vijanden met eenvoudige AI (bv. loop naar speler, ontplof bij dood)
-- [ ] Beurtensysteem (speler > vijanden > speler)
+- [*] Beurtensysteem (speler > vijanden > speler)
 
 ## Units & Interactie
 - [/] HealthComponent en DamageSystem via composition
@@ -37,4 +37,4 @@
 
 ## Polish (optioneel)
 - [ ] Eenvoudige hit-effecten of animaties
-- [ ] Highlighting van bereikbare tegels of doelen
+- [*] Highlighting van bereikbare tegels of doelen
