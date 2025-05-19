@@ -5,15 +5,18 @@ signal movement_finished;
 
 @export var actor: Node2D;
 @export var move_speed: float = 0.1;
+@export var enabled: bool = true;
 
 var grid_position: Vector2i:
 	get: return Navigation.world_to_map(actor.global_position);
 
 func move_to(grid_pos: Vector2i) -> void:
+	if !enabled: return;
 	actor.global_position = Navigation.map_to_world(grid_pos);
 	movement_finished.emit();
 
 func move_along_relative_path(path: Array[Vector2i]) -> void:
+	if !enabled: return;
 	if path.is_empty(): return;
 	
 	var tween = create_tween();
@@ -34,6 +37,7 @@ func move_along_relative_path(path: Array[Vector2i]) -> void:
 	movement_finished.emit();
 
 func move_along_absolute_path(path: Array[Vector2i]) -> void:
+	if !enabled: return;
 	if path.is_empty(): return;
 	
 	var tween = create_tween();

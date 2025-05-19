@@ -3,11 +3,14 @@ class_name Unit
 extends Node2D
 
 signal died;
+signal turn_started;
 signal turn_complete;
 
 @onready var sprite: Sprite2D = $Sprite2D;
 @onready var health_component: HealthComponent = $HealthComponent;
 @onready var position_component: PositionComponent = $PositionComponent;
+@onready var selected_indicator: ColorRect = $SelectedIndicator;
+@onready var blood_particles: CPUParticles2D = $BloodParticles;
 
 @export var controller: UnitController;
 @export var definition: UnitDefinition:
@@ -22,19 +25,20 @@ var alive: bool:
 	get: return health_component.current_health > 0;
 
 func select():
-	$SelectedIndicator.visible = true;
+	selected_indicator.visible = true;
 
 func deselect():
-	$SelectedIndicator.visible = false;
+	selected_indicator.visible = false;
 
 func start_turn():
+	turn_started.emit();
 	controller.start(self, grid_position);
 	await controller.finished;
 	turn_complete.emit.call_deferred();
 
 func _on_health_depleted():
 	died.emit();
-	$CPUParticles2D.emitting = true;
+	blood_particles.emitting = true;
 	await get_tree().create_timer(0.2).timeout;
 	visible = false;
 
@@ -42,9 +46,9 @@ func _on_health_depleted():
 func update_definition() -> void:
 	if definition == null: return;
 	name = definition.name;
-	$Sprite2D.texture = definition.texture;
-	$HealthComponent.max_health = definition.max_health;
-	$HealthComponent.current_health = health_component.max_health;
+	sprite.texture = definition.texture;
+	health_component.max_health = definition.max_health;
+	health_component.current_health = health_component.max_health;
 
 func _ready() -> void:
 	if !Engine.is_editor_hint():

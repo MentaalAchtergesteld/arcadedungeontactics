@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dw6tq28finwin"]
+[gd_scene load_steps=13 format=3 uid="uid://dw6tq28finwin"]
 
 [ext_resource type="Script" uid="uid://cpu4800dki5vl" path="res://entities/unit/unit.gd" id="1_w87tj"]
 [ext_resource type="Texture2D" uid="uid://b77myehxl1v37" path="res://assets/kenney_tiny-dungeon/Tiles/tile_0088.png" id="2_f5ot1"]
@@ -6,12 +6,22 @@
 [ext_resource type="Script" uid="uid://de5einrf501o1" path="res://components/move_component/move_component.gd" id="4_f5ot1"]
 [ext_resource type="PackedScene" uid="uid://cpt5jhmuhwtb3" path="res://components/healthbar/healthbar.tscn" id="4_h1r3i"]
 [ext_resource type="Script" uid="uid://dq70318534hri" path="res://components/hurtbox_component/hurtbox_component.gd" id="6_6v3vn"]
+[ext_resource type="Script" uid="uid://vdex777wdxq7" path="res://components/effect_dispatcher/effect_dispatcher.gd" id="7_wi85q"]
+[ext_resource type="PackedScene" uid="uid://biyi2ahrax8q0" path="res://components/effect_manager/freeze_manager/freeze_manager.tscn" id="8_wnbve"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6v3vn"]
 size = Vector2(16, 16)
 
 [sub_resource type="Gradient" id="Gradient_6v3vn"]
 colors = PackedColorArray(1, 0, 0, 1, 1, 0.1, 0.1, 0)
+
+[sub_resource type="Gradient" id="Gradient_wnbve"]
+offsets = PackedFloat32Array(0, 0.126667, 0.42, 0.706667, 1)
+colors = PackedColorArray(1, 0, 0, 0, 1, 0, 0, 1, 1, 0.533333, 0, 1, 0.49, 0.49, 0.49, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_guxrb"]
+offsets = PackedFloat32Array(0, 0.566667, 1)
+colors = PackedColorArray(0.328667, 0.68, 0, 1, 0.352833, 0.73, 0, 1, 1, 1, 1, 0)
 
 [node name="Unit" type="Node2D"]
 script = ExtResource("1_w87tj")
@@ -53,7 +63,7 @@ actor = NodePath("..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 shape = SubResource("RectangleShape2D_6v3vn")
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+[node name="BloodParticles" type="CPUParticles2D" parent="."]
 emitting = false
 amount = 16
 lifetime = 0.3
@@ -72,5 +82,41 @@ color = Color(1, 0, 0, 1)
 color_ramp = SubResource("Gradient_6v3vn")
 hue_variation_min = -1.0
 hue_variation_max = 1.0
+
+[node name="EffectDispatcher" type="Node2D" parent="."]
+script = ExtResource("7_wi85q")
+
+[node name="BurnManager" type="Node2D" parent="EffectDispatcher"]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="EffectDispatcher/BurnManager"]
+emitting = false
+amount = 32
+randomness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(8, 8)
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, -20)
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+angle_max = 180.0
+color_ramp = SubResource("Gradient_wnbve")
+
+[node name="PoisonManager" type="Node2D" parent="EffectDispatcher"]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="EffectDispatcher/PoisonManager"]
+emitting = false
+amount = 32
+lifetime = 0.5
+emission_shape = 3
+emission_rect_extents = Vector2(8, 8)
+spread = 180.0
+gravity = Vector2(0, -10)
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+angle_max = 180.0
+color_ramp = SubResource("Gradient_guxrb")
+
+[node name="FreezeManager" parent="EffectDispatcher" instance=ExtResource("8_wnbve")]
 
 [connection signal="hurt" from="HurtboxComponent" to="." method="_on_hurtbox_component_hurt"]

@@ -1,7 +1,7 @@
 class_name HurtboxComponent
 extends Area2D
 
-signal hurt(attacker: Node, damage: int);
+signal hurt(attacker: Node, effects: Array[EntityEffect]);
 
 @export var actor: Node;
 @export var enabled: bool = true:
@@ -13,7 +13,7 @@ signal hurt(attacker: Node, damage: int);
 func _on_area_entered(area: Area2D) -> void:
 	if !enabled or not area is HitboxComponent: return;
 	var hitbox = area as HitboxComponent;
-	hurt.emit(hitbox.actor, hitbox.damage);
+	hurt.emit(hitbox.actor, hitbox.effects);
 
 func _init() -> void:
 	set_collision_layer_value(1, false);

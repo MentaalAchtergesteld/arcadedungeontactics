@@ -4,7 +4,7 @@ extends Area2D
 signal hit(victim: Node);
 
 @export var actor: Node;
-@export var damage: int = 1;
+@export var effects: Array[EntityEffect];
 @export var enabled: bool = true:
 	set(value):
 		enabled = value;

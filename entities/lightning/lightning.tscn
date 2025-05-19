@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://qs6ddpn2muhb"]
+[gd_scene load_steps=14 format=3 uid="uid://qs6ddpn2muhb"]
 
 [ext_resource type="Script" uid="uid://c5dp2rdg68ap4" path="res://entities/lightning/lightning.gd" id="1_e22p1"]
 [ext_resource type="Texture2D" uid="uid://du8ou2ti8sqmr" path="res://assets/lightning.png" id="2_545y2"]
@@ -64,6 +64,10 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nkjns"]
 size = Vector2(7, 7)
 
+[sub_resource type="Gradient" id="Gradient_kaww6"]
+offsets = PackedFloat32Array(0, 0.533333, 1)
+colors = PackedColorArray(0.388373, 0.607706, 1, 1, 0.68, 0.797333, 1, 0.882353, 1, 1, 1, 0)
+
 [node name="Lightning" type="Node2D"]
 z_index = 1
 z_as_relative = false
@@ -97,7 +101,7 @@ initial_velocity_min = 80.0
 initial_velocity_max = 150.0
 angle_max = 180.0
 scale_amount_max = 2.0
-color = Color(0.388373, 0.607706, 1, 1)
+color_ramp = SubResource("Gradient_kaww6")
 hue_variation_min = -1.0
 hue_variation_max = 1.0
 

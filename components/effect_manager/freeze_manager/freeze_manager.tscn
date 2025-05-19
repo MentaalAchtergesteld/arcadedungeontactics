@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://biyi2ahrax8q0"]
+
+[ext_resource type="PackedScene" uid="uid://d0ksfdlw2uk1o" path="res://components/effect_manager/effect_manager.tscn" id="1_7pb3s"]
+[ext_resource type="Script" uid="uid://ckcn4anarsbp3" path="res://components/effect_manager/freeze_manager/freeze_manager.gd" id="2_6r11o"]
+
+[sub_resource type="Gradient" id="Gradient_6r11o"]
+offsets = PackedFloat32Array(0, 0.16, 0.606667, 1)
+colors = PackedColorArray(0, 0.616667, 1, 0, 0, 0.616667, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="FreezeManager" instance=ExtResource("1_7pb3s")]
+script = ExtResource("2_6r11o")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." index="0"]
+emitting = false
+amount = 32
+emission_shape = 3
+emission_rect_extents = Vector2(8, 8)
+direction = Vector2(0, -1)
+gravity = Vector2(0, 4)
+initial_velocity_min = 1.0
+initial_velocity_max = 5.0
+angular_velocity_min = 20.0
+angular_velocity_max = 50.0
+angle_max = 180.0
+scale_amount_min = 0.8
+scale_amount_max = 1.2
+color_ramp = SubResource("Gradient_6r11o")
