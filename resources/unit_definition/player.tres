@@ -1,10 +1,12 @@
-[gd_resource type="Resource" script_class="UnitDefinition" load_steps=10 format=3 uid="uid://8ha2b12rbaxv"]
+[gd_resource type="Resource" script_class="UnitDefinition" load_steps=14 format=3 uid="uid://8ha2b12rbaxv"]
 
 [ext_resource type="Script" uid="uid://dph6c8eprw4j6" path="res://resources/action/action.gd" id="1_1e2i3"]
 [ext_resource type="Script" uid="uid://dixfkyx870qxy" path="res://resources/action/move_action.gd" id="2_jxwwk"]
 [ext_resource type="Script" uid="uid://cglx2ilj6bopn" path="res://resources/unit_definition/unit_definition.gd" id="2_rvdok"]
-[ext_resource type="Script" uid="uid://dgmk7wvkkvatf" path="res://resources/action/attack_action.gd" id="3_jxwwk"]
+[ext_resource type="Script" uid="uid://dgmk7wvkkvatf" path="res://resources/action/lightning_action.gd" id="3_xrtng"]
 [ext_resource type="Script" uid="uid://63t43cod020k" path="res://resources/action/heal_action.gd" id="4_rrc11"]
+[ext_resource type="Script" uid="uid://3a44ueih7k1s" path="res://resources/action/icicle_action.gd" id="5_yfaj3"]
+[ext_resource type="Script" uid="uid://c482uyt7o3e02" path="res://resources/action/poison_dart_action.gd" id="6_lt30y"]
 [ext_resource type="Texture2D" uid="uid://cywvsejxr1ypi" path="res://assets/kenney_tiny-dungeon/Tiles/tile_0085.png" id="6_rrc11"]
 
 [sub_resource type="Resource" id="Resource_rrc11"]
@@ -13,7 +15,7 @@ range = 3
 metadata/_custom_type_script = "uid://dixfkyx870qxy"
 
 [sub_resource type="Resource" id="Resource_27rp2"]
-script = ExtResource("3_jxwwk")
+script = ExtResource("3_xrtng")
 range = 2
 damage = 1
 metadata/_custom_type_script = "uid://dgmk7wvkkvatf"
@@ -24,10 +26,22 @@ range = 3
 heal = 1
 metadata/_custom_type_script = "uid://63t43cod020k"
 
+[sub_resource type="Resource" id="Resource_yfaj3"]
+script = ExtResource("5_yfaj3")
+range = 3
+damage = 1
+metadata/_custom_type_script = "uid://3a44ueih7k1s"
+
+[sub_resource type="Resource" id="Resource_lt30y"]
+script = ExtResource("6_lt30y")
+range = 5
+damage = 1
+metadata/_custom_type_script = "uid://c482uyt7o3e02"
+
 [resource]
 script = ExtResource("2_rvdok")
 name = "Player"
-actions = Array[ExtResource("1_1e2i3")]([SubResource("Resource_rrc11"), SubResource("Resource_27rp2"), SubResource("Resource_xrtng")])
+actions = Array[ExtResource("1_1e2i3")]([SubResource("Resource_rrc11"), SubResource("Resource_27rp2"), SubResource("Resource_xrtng"), SubResource("Resource_yfaj3"), SubResource("Resource_lt30y")])
 max_health = 3
 texture = ExtResource("6_rrc11")
 metadata/_custom_type_script = "uid://cglx2ilj6bopn"

@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://qs6ddpn2muhb"]
+[gd_scene load_steps=16 format=3 uid="uid://qs6ddpn2muhb"]
 
 [ext_resource type="Script" uid="uid://c5dp2rdg68ap4" path="res://entities/lightning/lightning.gd" id="1_e22p1"]
 [ext_resource type="Texture2D" uid="uid://du8ou2ti8sqmr" path="res://assets/lightning.png" id="2_545y2"]
 [ext_resource type="Script" uid="uid://bhks5iivjxcqs" path="res://components/hitbox_component/hitbox_component.gd" id="2_kaww6"]
+[ext_resource type="Script" uid="uid://dpsoi42cwsc2r" path="res://resources/entity_effect/entity_effect.gd" id="4_nkjns"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_545y2"]
 atlas = ExtResource("2_545y2")
@@ -61,6 +62,13 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="Resource" id="Resource_nkjns"]
+script = ExtResource("4_nkjns")
+type = 3
+amount = 0
+duration = 2
+metadata/_custom_type_script = "uid://dpsoi42cwsc2r"
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nkjns"]
 size = Vector2(7, 7)
 
@@ -81,6 +89,7 @@ sprite_frames = SubResource("SpriteFrames_e22p1")
 [node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("actor")]
 script = ExtResource("2_kaww6")
 actor = NodePath("..")
+effects = Array[ExtResource("4_nkjns")]([SubResource("Resource_nkjns")])
 enabled = false
 metadata/_custom_type_script = "uid://bhks5iivjxcqs"
 

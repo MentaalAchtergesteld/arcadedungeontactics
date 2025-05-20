@@ -26,7 +26,6 @@
 - [ ] HD UI met actieknoppen of kaartkeuzes
 - [ ] Turn-indicator
 - [*] Healthbars boven units
-- [ ] Debug-info (bijv. tile-coördinaten of ability logs)
 
 ## Tech & Architectuur
 - [/] Navigation singleton voor grid-aligning en pathfinding

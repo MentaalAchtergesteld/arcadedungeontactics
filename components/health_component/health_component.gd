@@ -1,10 +1,10 @@
 class_name HealthComponent
 extends Node
 
-signal max_health_changed(max_health: int, amount: int);
-signal health_changed(current_health: int, amount: int);
-signal healed(current_health: int, amount: int);
-signal damaged(current_health: int, amount: int);
+signal max_health_changed(new_max_health: int, amount: int);
+signal health_changed(new_health: int, amount: int);
+signal healed(new_health: int, amount: int);
+signal damaged(new_health: int, amount: int);
 signal health_depleted;
 
 @export var current_health: int = 3: set = set_health;

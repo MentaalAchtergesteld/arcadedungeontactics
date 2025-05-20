@@ -3,25 +3,42 @@ extends EffectManager
 
 @onready var particles: CPUParticles2D = $CPUParticles2D;
 
+@export var max_cooldown: int = 1;
+
 var freeze_counter: int = 0;
+var cooldown_counter: int = 0;
+
+func start_effect() -> void:
+	particles.emitting = true;
+	
+	if dispatcher.position_component:
+		dispatcher.position_component.enabled = false;
+
+func stop_effect() -> void:
+	particles.emitting = false;
+	if dispatcher.position_component:
+		dispatcher.position_component.enabled = true;
 
 func _on_turn_start() -> void:
-	freeze_counter -= 1;
 	if freeze_counter > 0:
-		if dispatcher.position_component:
-			dispatcher.position_component.enabled = false;
+		freeze_counter -= 1;
 		
-		particles.emitting = true;
-	else:
-		if dispatcher.position_component:
-			dispatcher.position_component.enabled = true;
-		
-		particles.emitting = false;
+		if freeze_counter <= 0:
+			stop_effect();
+	elif cooldown_counter > 0:
+		cooldown_counter -= 1;
 
 func try_apply(attacker: Node, effect: EntityEffect) -> bool:
-	super(attacker, effect);
-	if effect.type != EntityEffect.Type.Freeze: return false;
-	
-	freeze_counter += effect.duration;
-	
-	return true;
+	match effect.type:
+		EntityEffect.Type.Burn:
+			cooldown_counter = 0;
+			return false;
+		EntityEffect.Type.Freeze:
+			if cooldown_counter > 0: return true;
+			freeze_counter += effect.duration;
+			if freeze_counter > 0:
+				cooldown_counter = max_cooldown;
+				start_effect();
+			return true;
+		_:
+			return false;

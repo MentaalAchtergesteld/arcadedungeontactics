@@ -9,6 +9,7 @@ colors = PackedColorArray(0, 0.616667, 1, 0, 0, 0.616667, 1, 1, 1, 1, 1, 1, 1, 1
 
 [node name="FreezeManager" instance=ExtResource("1_7pb3s")]
 script = ExtResource("2_6r11o")
+max_cooldown = 1
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="." index="0"]
 emitting = false

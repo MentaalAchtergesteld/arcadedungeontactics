@@ -1,10 +1,10 @@
-class_name AttackAction;
+class_name PoisonDartAction;
 extends Action
 
-@export var range: int = 3;
+@export var range: int = 5;
 @export var damage: int = 1;
 
-func name() -> String: return "Attack";
+func name() -> String: return "Poison Dart";
 func effect() -> Effect: return Effect.Negative;
 
 var cached_origin: Vector2i;
@@ -27,14 +27,12 @@ func clear_cache() -> void:
 
 func execute(caster: Unit, origin: Vector2i, target: Vector2i) -> void:
 	
-	var lightning_position = Navigation.map_to_world(target) + Vector2(0, Navigation.tile_size.y / 2);
-	var lightning = Lightning.create(lightning_position);
-	GameManager.map_objects.add_child(lightning);
-	await lightning.hit;
+	var dart_position = Navigation.map_to_world(origin);
+	var world_target = Navigation.map_to_world(target);
+	var dart = PoisonDart.create(dart_position, world_target);
+	GameManager.map_objects.add_child(dart);
 	
-	#var unit = GameManager.units.get_unit_at_position(target);
-	#if unit != null:
-	#	unit.health_component.damage(damage);
+	await dart.finished;
 	
 	clear_cache();
 	executed.emit.call_deferred();

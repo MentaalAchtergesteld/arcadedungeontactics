@@ -20,6 +20,8 @@ func _on_animated_sprite_2d_frame_changed() -> void:
 		hit.emit();
 		$HitboxComponent.enabled = true;
 
+
+
 const LIGHTNING = preload("res://entities/lightning/lightning.tscn")
 static func create(position: Vector2) -> Lightning:
 	var lightning = LIGHTNING.instantiate();

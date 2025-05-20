@@ -56,6 +56,3 @@ func _ready() -> void:
 		controller.setup(definition.actions);
 	
 	update_definition();
-
-func _on_hurtbox_component_hurt(attacker: Node, damage: int) -> void:
-	health_component.damage(damage);

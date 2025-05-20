@@ -3,6 +3,8 @@ extends ProgressBar
 
 @export var health_component: HealthComponent: set = set_health_component;
 
+@export var tween_time: float = 0.3;
+
 func set_health_component(new_health_component: HealthComponent) -> void:
 	if health_component:
 		disconnect_signals();
@@ -22,8 +24,14 @@ func connect_signals() -> void:
 	health_component.max_health_changed.connect(_on_max_health_changed);
 	health_component.health_changed.connect(_on_health_changed);
 
-func _on_max_health_changed(max_health: int, amount: int) -> void:
-	max_value = max_health;
+func _on_max_health_changed(new_max_health: int, amount: int) -> void:
+	var tween = create_tween();
+	tween.set_ease(Tween.EASE_OUT);
+	tween.set_trans(Tween.TRANS_CUBIC);
+	tween.tween_property(self, "max_value", new_max_health, tween_time);
 
-func _on_health_changed(current_health: int, amount: int) -> void:
-	value = current_health;
+func _on_health_changed(new_health: int, amount: int) -> void:
+	var tween = create_tween();
+	tween.set_ease(Tween.EASE_OUT);
+	tween.set_trans(Tween.TRANS_CUBIC);
+	tween.tween_property(self, "value", new_health, tween_time);

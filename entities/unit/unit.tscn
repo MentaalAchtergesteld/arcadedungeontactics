@@ -1,27 +1,23 @@
-[gd_scene load_steps=13 format=3 uid="uid://dw6tq28finwin"]
+[gd_scene load_steps=15 format=3 uid="uid://dw6tq28finwin"]
 
 [ext_resource type="Script" uid="uid://cpu4800dki5vl" path="res://entities/unit/unit.gd" id="1_w87tj"]
 [ext_resource type="Texture2D" uid="uid://b77myehxl1v37" path="res://assets/kenney_tiny-dungeon/Tiles/tile_0088.png" id="2_f5ot1"]
 [ext_resource type="Script" uid="uid://btfmngh8138a5" path="res://components/health_component/health_component.gd" id="3_p0kfm"]
+[ext_resource type="Script" uid="uid://dv81btkiw6lhb" path="res://components/shield_component/shield_component.gd" id="4_7pj5m"]
 [ext_resource type="Script" uid="uid://de5einrf501o1" path="res://components/move_component/move_component.gd" id="4_f5ot1"]
 [ext_resource type="PackedScene" uid="uid://cpt5jhmuhwtb3" path="res://components/healthbar/healthbar.tscn" id="4_h1r3i"]
 [ext_resource type="Script" uid="uid://dq70318534hri" path="res://components/hurtbox_component/hurtbox_component.gd" id="6_6v3vn"]
+[ext_resource type="PackedScene" uid="uid://csyjqx1kfgyga" path="res://components/shieldbar/shieldbar.tscn" id="7_a3s53"]
 [ext_resource type="Script" uid="uid://vdex777wdxq7" path="res://components/effect_dispatcher/effect_dispatcher.gd" id="7_wi85q"]
 [ext_resource type="PackedScene" uid="uid://biyi2ahrax8q0" path="res://components/effect_manager/freeze_manager/freeze_manager.tscn" id="8_wnbve"]
+[ext_resource type="PackedScene" uid="uid://bgprglu5f47yc" path="res://components/effect_manager/burn_manager/burn_manager.tscn" id="9_guxrb"]
+[ext_resource type="PackedScene" uid="uid://dswrwvp7e74ao" path="res://components/effect_manager/poison_manager/poison_manager.tscn" id="12_luavq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6v3vn"]
 size = Vector2(16, 16)
 
 [sub_resource type="Gradient" id="Gradient_6v3vn"]
 colors = PackedColorArray(1, 0, 0, 1, 1, 0.1, 0.1, 0)
-
-[sub_resource type="Gradient" id="Gradient_wnbve"]
-offsets = PackedFloat32Array(0, 0.126667, 0.42, 0.706667, 1)
-colors = PackedColorArray(1, 0, 0, 0, 1, 0, 0, 1, 1, 0.533333, 0, 1, 0.49, 0.49, 0.49, 1, 1, 1, 1, 0)
-
-[sub_resource type="Gradient" id="Gradient_guxrb"]
-offsets = PackedFloat32Array(0, 0.566667, 1)
-colors = PackedColorArray(0.328667, 0.68, 0, 1, 0.352833, 0.73, 0, 1, 1, 1, 1, 0)
 
 [node name="Unit" type="Node2D"]
 script = ExtResource("1_w87tj")
@@ -32,6 +28,9 @@ texture = ExtResource("2_f5ot1")
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("3_p0kfm")
 
+[node name="ShieldComponent" type="Node" parent="."]
+script = ExtResource("4_7pj5m")
+
 [node name="PositionComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
 script = ExtResource("4_f5ot1")
 actor = NodePath("..")
@@ -40,10 +39,19 @@ actor = NodePath("..")
 z_index = 1
 z_as_relative = false
 offset_left = -6.0
-offset_top = -13.0
+offset_top = -11.0
 offset_right = 6.0
 offset_bottom = -9.0
 health_component = NodePath("../HealthComponent")
+
+[node name="Shieldbar" parent="." node_paths=PackedStringArray("shield_component") instance=ExtResource("7_a3s53")]
+z_index = 1
+z_as_relative = false
+offset_left = -6.0
+offset_top = -13.0
+offset_right = 6.0
+offset_bottom = -11.0
+shield_component = NodePath("../ShieldComponent")
 
 [node name="SelectedIndicator" type="ColorRect" parent="."]
 visible = false
@@ -83,40 +91,16 @@ color_ramp = SubResource("Gradient_6v3vn")
 hue_variation_min = -1.0
 hue_variation_max = 1.0
 
-[node name="EffectDispatcher" type="Node2D" parent="."]
+[node name="EffectDispatcher" type="Node2D" parent="." node_paths=PackedStringArray("hurtbox", "actor", "position_component", "shield_component", "health_component")]
 script = ExtResource("7_wi85q")
-
-[node name="BurnManager" type="Node2D" parent="EffectDispatcher"]
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="EffectDispatcher/BurnManager"]
-emitting = false
-amount = 32
-randomness = 1.0
-emission_shape = 3
-emission_rect_extents = Vector2(8, 8)
-direction = Vector2(0, 0)
-spread = 180.0
-gravity = Vector2(0, -20)
-initial_velocity_min = 1.0
-initial_velocity_max = 2.0
-angle_max = 180.0
-color_ramp = SubResource("Gradient_wnbve")
-
-[node name="PoisonManager" type="Node2D" parent="EffectDispatcher"]
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="EffectDispatcher/PoisonManager"]
-emitting = false
-amount = 32
-lifetime = 0.5
-emission_shape = 3
-emission_rect_extents = Vector2(8, 8)
-spread = 180.0
-gravity = Vector2(0, -10)
-initial_velocity_min = 1.0
-initial_velocity_max = 2.0
-angle_max = 180.0
-color_ramp = SubResource("Gradient_guxrb")
+hurtbox = NodePath("../HurtboxComponent")
+actor = NodePath("..")
+position_component = NodePath("../PositionComponent")
+shield_component = NodePath("../ShieldComponent")
+health_component = NodePath("../HealthComponent")
 
 [node name="FreezeManager" parent="EffectDispatcher" instance=ExtResource("8_wnbve")]
 
-[connection signal="hurt" from="HurtboxComponent" to="." method="_on_hurtbox_component_hurt"]
+[node name="BurnManager" parent="EffectDispatcher" instance=ExtResource("9_guxrb")]
+
+[node name="PoisonManager" parent="EffectDispatcher" instance=ExtResource("12_luavq")]

@@ -16,6 +16,7 @@ func center_camera() -> void:
 func _ready() -> void:
 	EventBus.clear_winner.emit();
 	GameManager.setup_level(tilemap, map_objects ,units, camera);
+	GameManager.game_speed = 0.2;
 	Navigation.setup_level(tilemap, units.get_units);
 	center_camera();
 	

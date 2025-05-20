@@ -14,6 +14,8 @@ func _on_action_chosen(action: Action, position: Vector2i) -> void:
 	EventBus.hide_actions.emit();
 	
 	chosen_action.execute(caster, origin, position);
+	
+	await chosen_action.executed;
 	is_controlling = false;
 	finish();
 

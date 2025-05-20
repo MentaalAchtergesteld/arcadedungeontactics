@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://ienvh3ahrttf"]
+
+[ext_resource type="Script" uid="uid://ct4pr6d3mttm3" path="res://entities/poison_dart/poison_dart.gd" id="1_53iyq"]
+[ext_resource type="Texture2D" uid="uid://cdb706jmr0cyq" path="res://assets/poison_dart.png" id="1_t2b2c"]
+[ext_resource type="Script" uid="uid://bhks5iivjxcqs" path="res://components/hitbox_component/hitbox_component.gd" id="2_brxqe"]
+[ext_resource type="Script" uid="uid://dpsoi42cwsc2r" path="res://resources/entity_effect/entity_effect.gd" id="4_mhhxq"]
+
+[sub_resource type="Resource" id="Resource_6qqld"]
+script = ExtResource("4_mhhxq")
+type = 5
+amount = 0
+duration = 2
+metadata/_custom_type_script = "uid://dpsoi42cwsc2r"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_53iyq"]
+size = Vector2(4, 4)
+
+[node name="PoisonDart" type="Node2D"]
+script = ExtResource("1_53iyq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-8, 0)
+texture = ExtResource("1_t2b2c")
+
+[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("2_brxqe")
+actor = NodePath("..")
+effects = Array[ExtResource("4_mhhxq")]([SubResource("Resource_6qqld")])
+enabled = false
+metadata/_custom_type_script = "uid://bhks5iivjxcqs"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_53iyq")

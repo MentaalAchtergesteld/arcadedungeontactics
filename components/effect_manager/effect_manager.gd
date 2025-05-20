@@ -10,7 +10,6 @@ func _on_setup() -> void:
 	pass;
 
 func try_apply(attacker: Node, effect: EntityEffect) -> bool:
-	if dispatcher == null: return false;
 	return false;
 
 func setup(_dispatcher: EffectDispatcher) -> void:

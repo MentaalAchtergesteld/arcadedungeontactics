@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://c62v5dktd2o6t"]
+
+[ext_resource type="Texture2D" uid="uid://dxj5wfowq52vi" path="res://assets/icicle.png" id="1_1ia7n"]
+[ext_resource type="Script" uid="uid://c80kg22qy5v7b" path="res://entities/icicle/icicle.gd" id="1_yyu5l"]
+[ext_resource type="Script" uid="uid://bhks5iivjxcqs" path="res://components/hitbox_component/hitbox_component.gd" id="2_oa16o"]
+[ext_resource type="Script" uid="uid://dpsoi42cwsc2r" path="res://resources/entity_effect/entity_effect.gd" id="3_v7aar"]
+
+[sub_resource type="Resource" id="Resource_yyu5l"]
+script = ExtResource("3_v7aar")
+type = 4
+amount = 0
+duration = 2
+metadata/_custom_type_script = "uid://dpsoi42cwsc2r"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v7aar"]
+size = Vector2(8, 8)
+
+[sub_resource type="Gradient" id="Gradient_yyu5l"]
+offsets = PackedFloat32Array(0, 0.74, 1)
+colors = PackedColorArray(0.234974, 0.489982, 0.701991, 1, 0.553002, 0.757198, 0.886656, 1, 1, 1, 1, 0)
+
+[node name="Icicle" type="Node2D"]
+script = ExtResource("1_yyu5l")
+
+[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("2_oa16o")
+actor = NodePath("..")
+effects = Array[ExtResource("3_v7aar")]([SubResource("Resource_yyu5l")])
+metadata/_custom_type_script = "uid://bhks5iivjxcqs"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_v7aar")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -20)
+texture = ExtResource("1_1ia7n")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(0, 11)
+emitting = false
+amount = 16
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, -1)
+spread = 25.0
+initial_velocity_min = 100.0
+initial_velocity_max = 150.0
+angle_min = -45.0
+angle_max = 45.0
+scale_amount_min = 0.5
+scale_amount_max = 0.7
+color_ramp = SubResource("Gradient_yyu5l")
+hue_variation_min = 0.2
+hue_variation_max = 0.5
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3

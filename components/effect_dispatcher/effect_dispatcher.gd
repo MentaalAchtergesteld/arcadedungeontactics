@@ -9,6 +9,7 @@ signal turn_started;
 
 @export_group("Components")
 @export var position_component: PositionComponent;
+@export var shield_component: ShieldComponent;
 @export var health_component: HealthComponent;
 
 var managers: Array[EffectManager] = [];
