@@ -1,7 +1,7 @@
 class_name FreezeManager
 extends EffectManager
 
-@onready var particles: CPUParticles2D = $CPUParticles2D;
+@onready var particles: GPUParticles2D = $GPUParticles2D;
 
 @export var max_cooldown: int = 1;
 

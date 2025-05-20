@@ -1,28 +1,47 @@
-[gd_scene load_steps=4 format=3 uid="uid://biyi2ahrax8q0"]
+[gd_scene load_steps=8 format=3 uid="uid://biyi2ahrax8q0"]
 
 [ext_resource type="PackedScene" uid="uid://d0ksfdlw2uk1o" path="res://components/effect_manager/effect_manager.tscn" id="1_7pb3s"]
 [ext_resource type="Script" uid="uid://ckcn4anarsbp3" path="res://components/effect_manager/freeze_manager/freeze_manager.gd" id="2_6r11o"]
 
-[sub_resource type="Gradient" id="Gradient_6r11o"]
-offsets = PackedFloat32Array(0, 0.16, 0.606667, 1)
-colors = PackedColorArray(0, 0.616667, 1, 0, 0, 0.616667, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+[sub_resource type="Curve" id="Curve_s0wx2"]
+_data = [Vector2(0, 0), 0.0, 1.33708, 0, 0, Vector2(0.0955882, 1), -0.0372703, -0.0372703, 0, 0, Vector2(0.397059, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.533055, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_y6lnq"]
+curve = SubResource("Curve_s0wx2")
+
+[sub_resource type="Gradient" id="Gradient_yhguf"]
+offsets = PackedFloat32Array(0, 0.154545, 0.5, 0.690909, 1)
+colors = PackedColorArray(0.234974, 0.489982, 0.701991, 1, 0.443076, 0.659007, 0.811917, 1, 0.553002, 0.757198, 0.886656, 1, 0.678553, 0.870527, 0.953094, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_x4okj"]
+gradient = SubResource("Gradient_yhguf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6r11o"]
+lifetime_randomness = 0.3
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(8, 8, 1)
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, -1, 0)
+spread = 180.0
+flatness = 1.0
+initial_velocity_max = 3.0
+gravity = Vector3(0, 2, 0)
+scale_min = 0.9
+scale_max = 1.1
+color_ramp = SubResource("GradientTexture1D_x4okj")
+alpha_curve = SubResource("CurveTexture_y6lnq")
+hue_variation_min = -2.23517e-08
+hue_variation_max = -2.23517e-08
 
 [node name="FreezeManager" instance=ExtResource("1_7pb3s")]
 script = ExtResource("2_6r11o")
 max_cooldown = 1
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="." index="0"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." index="0"]
 emitting = false
 amount = 32
-emission_shape = 3
-emission_rect_extents = Vector2(8, 8)
-direction = Vector2(0, -1)
-gravity = Vector2(0, 4)
-initial_velocity_min = 1.0
-initial_velocity_max = 5.0
-angular_velocity_min = 20.0
-angular_velocity_max = 50.0
-angle_max = 180.0
-scale_amount_min = 0.8
-scale_amount_max = 1.2
-color_ramp = SubResource("Gradient_6r11o")
+lifetime = 3.0
+process_material = SubResource("ParticleProcessMaterial_6r11o")
