@@ -11,13 +11,16 @@ var grid_position: Vector2i:
 	get: return Navigation.world_to_map(actor.global_position);
 
 func move_to(grid_pos: Vector2i) -> void:
-	if !enabled: return;
+	if !enabled:
+		movement_finished.emit();
+		return;
 	actor.global_position = Navigation.map_to_world(grid_pos);
 	movement_finished.emit();
 
 func move_along_relative_path(path: Array[Vector2i]) -> void:
-	if !enabled: return;
-	if path.is_empty(): return;
+	if !enabled or path.is_empty():
+		movement_finished.emit();
+		return;
 	
 	var tween = create_tween();
 	tween.set_ease(Tween.EASE_OUT);
@@ -37,8 +40,9 @@ func move_along_relative_path(path: Array[Vector2i]) -> void:
 	movement_finished.emit();
 
 func move_along_absolute_path(path: Array[Vector2i]) -> void:
-	if !enabled: return;
-	if path.is_empty(): return;
+	if !enabled or path.is_empty():
+		movement_finished.emit();
+		return;
 	
 	var tween = create_tween();
 	tween.set_ease(Tween.EASE_OUT);

@@ -13,6 +13,7 @@ signal hurt(attacker: Node, effects: Array[EntityEffect]);
 func _on_area_entered(area: Area2D) -> void:
 	if !enabled or not area is HitboxComponent: return;
 	var hitbox = area as HitboxComponent;
+	if hitbox.actor == actor: return;
 	hurt.emit(hitbox.actor, hitbox.effects);
 
 func _init() -> void:

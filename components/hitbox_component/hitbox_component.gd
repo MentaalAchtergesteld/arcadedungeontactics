@@ -8,12 +8,13 @@ signal hit(victim: Node);
 @export var enabled: bool = true:
 	set(value):
 		enabled = value;
-		monitorable = enabled;
-		monitoring = enabled;
+		set_deferred("monitorable", enabled);
+		set_deferred("monitoring", enabled);
 
 func _on_area_entered(area: Area2D) -> void:
 	if not area is HurtboxComponent: return;
 	var hurtbox = area as HurtboxComponent;
+	if hurtbox.actor == actor: return;
 	hit.emit(hurtbox);
 
 func _init() -> void:

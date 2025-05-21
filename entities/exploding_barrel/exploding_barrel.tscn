@@ -1,0 +1,71 @@
+[gd_scene load_steps=12 format=3 uid="uid://ci0fvx2yy6ecj"]
+
+[ext_resource type="Texture2D" uid="uid://b0ky0kpvj5p0a" path="res://assets/exploding_barrel.png" id="1_ahbsg"]
+[ext_resource type="Script" uid="uid://b3mfw2ikm6yyu" path="res://entities/exploding_barrel/exploding_barrel.gd" id="1_t30rw"]
+[ext_resource type="Script" uid="uid://bhks5iivjxcqs" path="res://components/hitbox_component/hitbox_component.gd" id="2_cq377"]
+[ext_resource type="Script" uid="uid://dq70318534hri" path="res://components/hurtbox_component/hurtbox_component.gd" id="2_yskpn"]
+[ext_resource type="Script" uid="uid://dpsoi42cwsc2r" path="res://resources/entity_effect/entity_effect.gd" id="3_30l1u"]
+
+[sub_resource type="Gradient" id="Gradient_ahbsg"]
+offsets = PackedFloat32Array(0, 0.272727, 0.5, 0.7, 0.827273, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.687333, 0.33, 1, 0.95, 1, 0, 1, 1, 1, 1, 1, 0.409091, 0.409091, 0.409091, 1, 0.25, 0.25, 0.25, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cq377"]
+gradient = SubResource("Gradient_ahbsg")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ahbsg"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 287.35
+initial_velocity_max = 333.33
+gravity = Vector3(0, 980, 0)
+scale_min = 2.0
+scale_max = 2.5
+color_ramp = SubResource("GradientTexture1D_cq377")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yskpn"]
+size = Vector2(16, 16)
+
+[sub_resource type="Resource" id="Resource_yskpn"]
+script = ExtResource("3_30l1u")
+type = 3
+amount = 0
+duration = 1
+metadata/_custom_type_script = "uid://dpsoi42cwsc2r"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_30l1u"]
+size = Vector2(32, 32)
+
+[node name="ExplodingBarrel" type="Node2D"]
+script = ExtResource("1_t30rw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ahbsg")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 64
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ahbsg")
+
+[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("2_yskpn")
+actor = NodePath("..")
+metadata/_custom_type_script = "uid://dq70318534hri"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("RectangleShape2D_yskpn")
+
+[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("2_cq377")
+actor = NodePath("..")
+effects = Array[ExtResource("3_30l1u")]([SubResource("Resource_yskpn")])
+enabled = false
+metadata/_custom_type_script = "uid://bhks5iivjxcqs"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_30l1u")
+
+[node name="Timer" type="Timer" parent="."]
