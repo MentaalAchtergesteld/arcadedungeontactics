@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dw6tq28finwin"]
+[gd_scene load_steps=19 format=3 uid="uid://dw6tq28finwin"]
 
 [ext_resource type="Script" uid="uid://cpu4800dki5vl" path="res://entities/unit/unit.gd" id="1_w87tj"]
 [ext_resource type="Texture2D" uid="uid://b77myehxl1v37" path="res://assets/kenney_tiny-dungeon/Tiles/tile_0088.png" id="2_f5ot1"]
@@ -12,6 +12,12 @@
 [ext_resource type="PackedScene" uid="uid://biyi2ahrax8q0" path="res://components/effect_manager/freeze_manager/freeze_manager.tscn" id="8_wnbve"]
 [ext_resource type="PackedScene" uid="uid://bgprglu5f47yc" path="res://components/effect_manager/burn_manager/burn_manager.tscn" id="9_guxrb"]
 [ext_resource type="PackedScene" uid="uid://dswrwvp7e74ao" path="res://components/effect_manager/poison_manager/poison_manager.tscn" id="12_luavq"]
+[ext_resource type="Script" uid="uid://c4cb5shumi5qd" path="res://components/hover_component/hover_component.gd" id="13_if3wr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_if3wr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_if3wr"]
+font_size = 8
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6v3vn"]
 size = Vector2(16, 16)
@@ -19,11 +25,32 @@ size = Vector2(16, 16)
 [sub_resource type="Gradient" id="Gradient_6v3vn"]
 colors = PackedColorArray(1, 0, 0, 1, 1, 0.1, 0.1, 0)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_if3wr"]
+size = Vector2(16, 16)
+
 [node name="Unit" type="Node2D"]
 script = ExtResource("1_w87tj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_f5ot1")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+visible = false
+z_index = 2
+z_as_relative = false
+offset_left = -23.0
+offset_top = -49.0
+offset_right = 23.0
+offset_bottom = -9.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_if3wr")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Unit Details"
+label_settings = SubResource("LabelSettings_if3wr")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("3_p0kfm")
@@ -104,3 +131,9 @@ health_component = NodePath("../HealthComponent")
 [node name="BurnManager" parent="EffectDispatcher" instance=ExtResource("9_guxrb")]
 
 [node name="PoisonManager" parent="EffectDispatcher" instance=ExtResource("12_luavq")]
+
+[node name="HoverComponent" type="Area2D" parent="."]
+script = ExtResource("13_if3wr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HoverComponent"]
+shape = SubResource("RectangleShape2D_if3wr")

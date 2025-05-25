@@ -11,6 +11,7 @@ signal turn_complete;
 @onready var position_component: PositionComponent = $PositionComponent;
 @onready var selected_indicator: ColorRect = $SelectedIndicator;
 @onready var blood_particles: CPUParticles2D = $BloodParticles;
+@onready var hover_component: HoverComponent = $HoverComponent;
 
 @export var controller: UnitController;
 @export var definition: UnitDefinition:
@@ -50,9 +51,17 @@ func update_definition() -> void:
 	health_component.max_health = definition.max_health;
 	health_component.current_health = health_component.max_health;
 
+func _show_unit_details():
+	$PanelContainer.visible = true;
+
+func _hide_unit_details():
+	$PanelContainer.visible = false;
+
 func _ready() -> void:
 	if !Engine.is_editor_hint():
 		health_component.health_depleted.connect(_on_health_depleted);
+		hover_component.hover_entered.connect(_show_unit_details);
+		hover_component.hover_exited.connect(_hide_unit_details);
 		controller.setup(definition.actions);
 	
 	update_definition();
