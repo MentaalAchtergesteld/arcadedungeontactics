@@ -58,16 +58,11 @@ func clear_radius_highlights(center: Vector2i, radius: int, color: Color) -> voi
 			if pos.length() <= radius:
 				remove_highlight(center + pos);
 
-func highlight_area(primary: Vector2i, area: Array[Vector2i], color: Color) -> void:
-	add_highlight(primary, color, true);
-	
+func highlight_area(area: Array[Vector2i], color: Color) -> void:
 	for pos in area:
-		if pos == primary: continue;
 		add_highlight(pos, color);
 
 func highlight_radius(center: Vector2i, radius: int, color: Color) -> void:
-	add_highlight(center, color, true);
-	
 	for dx in range(-radius, radius+1):
 		for dy in range(-radius, radius+1):
 			var pos = Vector2i(dx, dy);

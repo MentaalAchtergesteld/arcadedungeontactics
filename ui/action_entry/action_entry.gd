@@ -30,13 +30,12 @@ func _on_dropped(pos: Vector2) -> void:
 func highlight_action_areas(pos: Vector2) -> void:
 	EventBus.clear_all_highlights.emit();
 	
-	EventBus.highlight_area.emit(origin, action.get_valid_target_tiles(null, origin), TileHighlighter.RANGE);
+	EventBus.highlight_area.emit(action.get_valid_target_tiles(null, origin), TileHighlighter.RANGE);
 	
 	var grid_position = pos_to_grid(pos);
 	if action.is_valid_target(null, origin, grid_position):
 		var color;
 		EventBus.highlight_area.emit(
-			grid_position,
 			action.get_effect_tiles(null, origin,grid_position),
 			TileHighlighter.action_effect_to_color(action.effect())
 		);
